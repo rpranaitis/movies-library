@@ -14,8 +14,8 @@ let connection;
 
   try {
     await client.connect();
-    console.log('Connected to MongoDB');
     connection = client.db(process.env.DB_DATABASE);
+    console.log('Connected to MongoDB');
 
     return connection;
   } catch (error) {
