@@ -5,15 +5,17 @@ require('dotenv').config();
 
 const router = express.Router();
 
+const headers = {
+  'X-RapidAPI-Key': process.env.IMDB_KEY,
+  'X-RapidAPI-Host': process.env.IMDB_HOST,
+};
+
 router.get('/', async (req, res) => {
   const options = {
     method: 'GET',
     url: `https://${process.env.IMDB_HOST}/v1/find/`,
     params: { query: req.query.q },
-    headers: {
-      'X-RapidAPI-Key': process.env.IMDB_KEY,
-      'X-RapidAPI-Host': process.env.IMDB_HOST,
-    },
+    headers: headers,
   };
 
   try {
@@ -41,10 +43,7 @@ router.get('/:id', async (req, res) => {
     method: 'GET',
     url: `https://${process.env.IMDB_HOST}/v1/title/`,
     params: { id: req.params.id },
-    headers: {
-      'X-RapidAPI-Key': process.env.IMDB_KEY,
-      'X-RapidAPI-Host': process.env.IMDB_HOST,
-    },
+    headers: headers,
   };
 
   try {
