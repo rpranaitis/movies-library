@@ -1,7 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const express = require('express');
-const { randomUserAgent } = require('../utils/scrapper');
+const { randomUserAgent } = require('../utils/scrapping');
 
 require('dotenv').config();
 
