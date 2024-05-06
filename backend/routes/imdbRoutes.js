@@ -1,13 +1,14 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const express = require('express');
+const { authToken } = require('../middlewares/authMiddlewares');
 const { randomUserAgent } = require('../utils/scrapping');
 
 require('dotenv').config();
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', authToken, async (req, res) => {
   const options = {
     method: 'GET',
     url: `https://${process.env.IMDB_SEARCH_HOST}/suggestion/x/${req.query.q}.json`,
@@ -33,7 +34,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', authToken, async (req, res) => {
   const options = {
     method: 'GET',
     url: `https://${process.env.IMDB_MAIN_HOST}/title/${req.params.id}`,

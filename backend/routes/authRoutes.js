@@ -3,7 +3,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const { registerSchema, loginSchema } = require('../validation/authValidationSchemas');
 const { handleError } = require('../validation/errorHandler');
-const { authenticateToken } = require('../middlewares/authMiddlewares');
+const { authToken } = require('../middlewares/authMiddlewares');
 
 require('dotenv').config();
 
@@ -59,7 +59,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-router.get('/profile', authenticateToken, (req, res) => {
+router.get('/profile', authToken, (req, res) => {
   res.send(req.user);
 });
 
