@@ -1,0 +1,35 @@
+.header {
+  width: 100%;
+  background: #e1f2ff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 15px;
+}
+
+.nav {
+  display: flex;
+  gap: 20px;
+  padding: 15px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: black;
+}
+
+.nav a.active {
+  font-weight: bold;
+}
+
+.logoWrapper img {
+  width: 50px;
+  height: 45px;
+}
+
+.logoutWrapper svg {
+  top: 15px;
+  right: 20px;
+  color: black;
+  cursor: pointer;
+}
