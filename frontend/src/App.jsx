@@ -6,6 +6,8 @@ import Alert from '@mui/material/Alert';
 import AppRouter from './router/AppRouter';
 import { useEffect, useState } from 'react';
 import { UserProvider } from './contexts/UserContext';
+import { ThemeProvider } from '@mui/material/styles';
+import { theme } from './styles/theme';
 
 const App = () => {
   const [loading, setLoading] = useState(false);
@@ -45,24 +47,26 @@ const App = () => {
   };
 
   return (
-    <UserProvider>
-      <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading}>
-        <CircularProgress color="inherit" />
-      </Backdrop>
-      {message && (
-        <Snackbar
-          open={Boolean(message)}
-          autoHideDuration={6000}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-          onClose={handleCloseMessage}
-        >
-          <Alert onClose={handleCloseMessage} severity={message.type} variant="filled" sx={{ width: '100%' }}>
-            {message.text ?? 'Unexpected error.'}
-          </Alert>
-        </Snackbar>
-      )}
-      <AppRouter />
-    </UserProvider>
+    <ThemeProvider theme={theme}>
+      <UserProvider>
+        <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+        {message && (
+          <Snackbar
+            open={Boolean(message)}
+            autoHideDuration={6000}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            onClose={handleCloseMessage}
+          >
+            <Alert onClose={handleCloseMessage} severity={message.type} variant="filled" sx={{ width: '100%' }}>
+              {message.text ?? 'Unexpected error.'}
+            </Alert>
+          </Snackbar>
+        )}
+        <AppRouter />
+      </UserProvider>
+    </ThemeProvider>
   );
 };
 

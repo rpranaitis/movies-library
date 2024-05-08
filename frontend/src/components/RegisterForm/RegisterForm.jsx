@@ -15,7 +15,7 @@ const RegisterForm = () => {
   const handleSubmit = async (data) => {
     try {
       await registerUser(data);
-      navigate(ROUTES.LOGIN);
+      navigate(ROUTES.HOME);
     } catch (error) {
       console.error(error);
     }
