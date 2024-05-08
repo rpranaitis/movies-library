@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { ROUTES, navigationBarRoutes } from '../../routes';
+import { ROUTES, navigationBarRoutes } from '../../router/constants';
 import { LuLogOut } from 'react-icons/lu';
 import styles from './NavigationBar.module.scss';
 
@@ -16,7 +16,7 @@ const NavigationBar = () => {
         ))}
       </nav>
       <div className={styles.logoutWrapper}>
-        <Link to={ROUTES.LOGIN}>
+        <Link to={ROUTES.HOME}>
           <LuLogOut />
         </Link>
       </div>

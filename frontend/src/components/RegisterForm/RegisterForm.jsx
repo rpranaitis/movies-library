@@ -4,7 +4,7 @@ import Error from '../Error/Error';
 import styles from './RegisterForm.module.scss';
 import { Formik, Form, ErrorMessage } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../routes';
+import { ROUTES } from '../../router/constants';
 import { registerInitialValues } from './initialValues';
 import { registerValidationSchema } from './validationSchema';
 import { registerUser } from '../../api/auth';

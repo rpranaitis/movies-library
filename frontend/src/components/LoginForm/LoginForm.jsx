@@ -5,7 +5,7 @@ import { loginUser } from '../../api/auth';
 import { LuMail, LuKeyRound } from 'react-icons/lu';
 import { Formik, Form } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../routes';
+import { ROUTES } from '../../router/constants';
 import { loginInitialValues } from './initialValues';
 import { loginValidationSchema } from './validationSchema';
 

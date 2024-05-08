@@ -3,9 +3,9 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
-import { Route, Routes } from 'react-router-dom';
-import { routes } from './routes';
+import AppRouter from './router/AppRouter';
 import { useEffect, useState } from 'react';
+import { UserProvider } from './contexts/UserContext';
 import './App.module.scss';
 
 const App = () => {
@@ -46,7 +46,7 @@ const App = () => {
   };
 
   return (
-    <>
+    <UserProvider>
       <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading}>
         <CircularProgress color="inherit" />
       </Backdrop>
@@ -62,20 +62,8 @@ const App = () => {
           </Alert>
         </Snackbar>
       )}
-      <Routes>
-        {routes.map(({ path, Layout, Component }) => (
-          <Route
-            key={path}
-            path={path}
-            element={
-              <Layout>
-                <Component />
-              </Layout>
-            }
-          ></Route>
-        ))}
-      </Routes>
-    </>
+      <AppRouter />
+    </UserProvider>
   );
 };
 

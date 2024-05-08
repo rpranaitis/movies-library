@@ -1,7 +1,7 @@
 import styles from './Login.module.scss';
 import LoginForm from '../../components/LoginForm/LoginForm';
 import BasicView from '../../components/BasicView/BasicView';
-import { ROUTES } from '../../routes';
+import { ROUTES } from '../../router/constants';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
