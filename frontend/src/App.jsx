@@ -6,7 +6,6 @@ import Alert from '@mui/material/Alert';
 import AppRouter from './router/AppRouter';
 import { useEffect, useState } from 'react';
 import { UserProvider } from './contexts/UserContext';
-import './App.module.scss';
 
 const App = () => {
   const [loading, setLoading] = useState(false);

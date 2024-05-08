@@ -1,0 +1,16 @@
+.container {
+  background: linear-gradient(to left, #ffa500, #ff4500);
+  height: 70px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-wrap: wrap;
+  overflow-wrap: anywhere;
+  padding: 15px;
+}
+
+.welcome {
+  font-size: 14px;
+  font-weight: bold;
+}
