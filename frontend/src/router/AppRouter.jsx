@@ -1,6 +1,7 @@
 import Login from '../pages/Login/Login';
 import Register from '../pages/Register/Register';
-import Home from '../pages/Home/Home';
+import MyCollection from '../pages/MyCollection/MyCollection';
+import Users from '../pages/Users/Users';
 import AuthLayout from '../layouts/AuthLayout';
 import DefaultLayout from '../layouts/DefaultLayout';
 import { useContext } from 'react';
@@ -14,13 +15,18 @@ const AppRouter = () => {
   const routes = [
     {
       path: ROUTES.HOME,
-      Component: isLoggedIn ? Home : Login,
+      Component: isLoggedIn ? MyCollection : Login,
       Layout: isLoggedIn ? AuthLayout : DefaultLayout,
     },
     {
       path: ROUTES.REGISTER,
       Component: Register,
       Layout: DefaultLayout,
+    },
+    {
+      path: ROUTES.USERS,
+      Component: Users,
+      Layout: AuthLayout,
     },
   ];
 
