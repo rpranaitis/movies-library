@@ -4,18 +4,18 @@ import styles from './LoginForm.module.scss';
 import { loginUser } from '../../api/auth';
 import { LuMail, LuKeyRound } from 'react-icons/lu';
 import { Formik, Form } from 'formik';
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../router/constants';
 import { loginInitialValues } from './initialValues';
 import { loginValidationSchema } from './validationSchema';
+import { useContext } from 'react';
+import { UserContext } from '../../contexts/UserContext';
 
 const LoginForm = () => {
-  const navigate = useNavigate();
+  const { handleLogin } = useContext(UserContext);
 
   const handleSubmit = async (data) => {
     try {
-      await loginUser(data);
-      navigate(ROUTES.HOME);
+      const response = await loginUser(data);
+      handleLogin(response.user, response.token);
     } catch (error) {
       console.error(error);
     }

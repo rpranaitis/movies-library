@@ -8,8 +8,4 @@ export const navigationBarRoutes = [
     name: 'Home',
     path: ROUTES.HOME,
   },
-  {
-    name: 'Home',
-    path: ROUTES.HOME,
-  },
 ];
