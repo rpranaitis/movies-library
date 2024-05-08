@@ -52,13 +52,13 @@ const App = () => {
       </Backdrop>
       {message && (
         <Snackbar
-          open={message}
+          open={Boolean(message)}
           autoHideDuration={6000}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
           onClose={handleCloseMessage}
         >
           <Alert onClose={handleCloseMessage} severity={message.type} variant="filled" sx={{ width: '100%' }}>
-            {message.text}
+            {message.text ?? 'Unexpected error.'}
           </Alert>
         </Snackbar>
       )}

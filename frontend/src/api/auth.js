@@ -14,7 +14,7 @@ export const loginUser = async (data) => {
 };
 
 export const checkUser = async () => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('authToken');
 
   const response = await axios.get(`${API}/auth/profile`, {
     headers: {

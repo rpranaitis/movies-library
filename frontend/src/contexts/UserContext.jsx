@@ -17,12 +17,12 @@ const UserProvider = ({ children }) => {
 
   const handleLogin = (user, token) => {
     setUser(user);
-    localStorage.setItem('token', token);
+    localStorage.setItem('authToken', token);
   };
 
   const handleLogOut = () => {
     setUser(null);
-    localStorage.removeItem('token');
+    localStorage.removeItem('authToken');
   };
 
   useEffect(() => {
