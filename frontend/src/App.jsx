@@ -10,7 +10,7 @@ import './App.module.scss';
 
 const App = () => {
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState(false);
 
   useEffect(() => {
     const requestInterceptor = axios.interceptors.request.use((config) => {
@@ -42,7 +42,7 @@ const App = () => {
       return;
     }
 
-    setMessage(null);
+    setMessage(false);
   };
 
   return (
@@ -50,9 +50,9 @@ const App = () => {
       <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={loading}>
         <CircularProgress color="inherit" />
       </Backdrop>
-      {Boolean(message) && (
+      {message && (
         <Snackbar
-          open={Boolean(message)}
+          open={message}
           autoHideDuration={6000}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
           onClose={handleCloseMessage}
