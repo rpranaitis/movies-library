@@ -2,10 +2,9 @@ import PropTypes from 'prop-types';
 import UserBlock from '../components/UserBlock/UserBlock';
 import NavigationBar from '../components/NavigationBar/NavigationBar';
 import Header from '../components/Header/Header';
-import Subheader from '../components/Subheader/Subheader';
 import MainBlock from '../components/MainBlock/MainBlock';
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material//Box';
+import Box from '@mui/material/Box';
 
 const AuthLayout = ({ children }) => {
   return (
@@ -17,7 +16,6 @@ const AuthLayout = ({ children }) => {
         </Grid>
         <Grid item xs={10}>
           <Header />
-          <Subheader />
           <MainBlock>{children}</MainBlock>
         </Grid>
       </Grid>

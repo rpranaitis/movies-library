@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const rateLimit = require('express-rate-limit');
 const { registerSchema, loginSchema } = require('../validation/authValidationSchemas');
 const { handleError } = require('../validation/errorHandler');
 const { authToken } = require('../middlewares/authMiddlewares');
@@ -9,6 +10,21 @@ require('dotenv').config();
 
 const router = express.Router();
 const client = require('../config/db');
+
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  message: { message: 'Too many login attempts. Please try again later.' },
+});
+
+const profileLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: { message: 'Too many requests. Please try again later.' },
+});
+
+router.use('/login', loginLimiter);
+// router.use('/profile', profileLimiter);
 
 router.post('/register', async (req, res) => {
   try {

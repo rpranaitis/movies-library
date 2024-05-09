@@ -1,0 +1,24 @@
+.input {
+  border: none;
+  padding: 10px;
+  outline: none;
+  width: 100%;
+  color: #232633;
+  font-size: 16px;
+  padding-left: 40px;
+
+  &::placeholder {
+    color: #c8cbda;
+  }
+}
+
+.wrapper {
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  margin-top: 8px;
+  margin-left: 10px;
+  color: #c8cbda;
+}

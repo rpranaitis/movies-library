@@ -5,6 +5,8 @@ const MainBlock = ({ children }) => {
   return <div className={styles.container}>{children}</div>;
 };
 
-MainBlock.propTypes = {};
+MainBlock.propTypes = {
+  children: PropTypes.node,
+};
 
 export default MainBlock;

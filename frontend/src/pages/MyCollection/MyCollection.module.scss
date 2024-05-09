@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  overflow-y: scroll;
+  height: calc(100vh - 150px);
+}
+
+.image {
+  width: 100%;
+}
+
+.genre {
+  color: #8f8f8f;
+}
