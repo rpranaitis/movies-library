@@ -26,11 +26,11 @@ const LoginForm = () => {
     <Formik initialValues={loginInitialValues} onSubmit={handleSubmit} validationSchema={loginValidationSchema}>
       <Form className={styles.form}>
         <InputField name="email" type="email" placeholder="Email">
-          <LuMail />
+          <LuMail style={{ fontSize: 16 }} />
         </InputField>
         <ErrorMessage name="email" component={Error} />
         <InputField name="password" type="password" placeholder="Password">
-          <LuKeyRound />
+          <LuKeyRound style={{ fontSize: 16 }} />
         </InputField>
         <ErrorMessage name="password" component={Error} />
         <Button type="submit">SIGN IN</Button>

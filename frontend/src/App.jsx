@@ -59,7 +59,7 @@ const App = () => {
             anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
             onClose={handleCloseMessage}
           >
-            <Alert onClose={handleCloseMessage} severity={message.type} variant="filled" sx={{ width: '100%' }}>
+            <Alert onClose={handleCloseMessage} severity={message.type} sx={{ width: '100%' }}>
               {message.text ?? 'Unexpected error.'}
             </Alert>
           </Snackbar>

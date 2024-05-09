@@ -6,10 +6,20 @@
   height: calc(100vh - 150px);
 }
 
+.subheader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .image {
   width: 100%;
 }
 
 .genre {
   color: #8f8f8f;
+}
+
+.filterLink {
+  color: #575f80;
 }

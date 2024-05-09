@@ -17,6 +17,12 @@ const loginLimiter = rateLimit({
   message: { message: 'Too many login attempts. Please try again later.' },
 });
 
+const registerLimiter = rateLimit({
+  windowMs: 24 * 60 * 60 * 1000,
+  max: 1,
+  message: { message: 'Too many registration attempts from this IP. Please try again later.' },
+});
+
 const profileLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
@@ -24,6 +30,7 @@ const profileLimiter = rateLimit({
 });
 
 router.use('/login', loginLimiter);
+router.use('/register', registerLimiter);
 // router.use('/profile', profileLimiter);
 
 router.post('/register', async (req, res) => {
