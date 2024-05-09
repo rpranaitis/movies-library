@@ -16,7 +16,7 @@ router.get('/', authToken, async (req, res) => {
 
   try {
     const response = await axios.request(options);
-    const filteredData = response.data.d.filter((item) => item.y && item.qid === 'movie');
+    const filteredData = response.data.d.filter((item) => item.y && item.i && item.qid === 'movie');
 
     const result = filteredData.map((item) => {
       return {
@@ -24,7 +24,7 @@ router.get('/', authToken, async (req, res) => {
         title: item.l,
         year: item.y,
         credits: item.s,
-        image: item.i ? item.i.imageUrl : null,
+        image: item.i.imageUrl,
       };
     });
 

@@ -8,7 +8,7 @@ const UserBlock = () => {
   return (
     <div className={styles.container}>
       <span className={styles.welcome}>Welcome,</span>
-      <span>{user.email}</span>
+      <span className={styles.email}>{user.email}</span>
     </div>
   );
 };

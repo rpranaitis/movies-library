@@ -11,6 +11,7 @@ const Header = () => {
     <div className={styles.container}>
       Search
       <Button
+        size="large"
         onClick={handleLogOut}
         variant="text"
         startIcon={<ExitToAppIcon />}
