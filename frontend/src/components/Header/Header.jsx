@@ -9,13 +9,13 @@ const Header = () => {
 
   return (
     <div className={styles.container}>
-      Search
+      <div></div>
       <Button
         size="large"
         onClick={handleLogOut}
         variant="text"
         startIcon={<ExitToAppIcon />}
-        sx={{ padding: '10px 20px 10px 20px' }}
+        sx={{ padding: '10px 20px 10px 20px', marginRight: -1 }}
       >
         Leave the library
       </Button>

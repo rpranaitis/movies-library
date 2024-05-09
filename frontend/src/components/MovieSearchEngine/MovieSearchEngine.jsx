@@ -10,9 +10,9 @@ import SearchInput from '../SearchInput/SearchInput';
 import PropTypes from 'prop-types';
 import CloseIcon from '@mui/icons-material/Close';
 import debounce from 'debounce';
+import styles from './MovieSearchEngine.module.scss';
 import { forwardRef, useEffect, useState, useRef } from 'react';
 import { searchMovie } from '../../api/imdb';
-import styles from './MovieSearchEngine.module.scss';
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -28,6 +28,8 @@ const MovieSearchEngine = ({ show, onClose }) => {
 
     if (show) {
       setTimeout(() => {
+        setSearchResults([]);
+        searchInput.current.value = null;
         searchInput.current.focus();
       }, 0);
     }
@@ -68,32 +70,38 @@ const MovieSearchEngine = ({ show, onClose }) => {
         </Button>
       </Box>
       <DialogContent sx={{ paddingTop: 0 }}>
-        <DialogContentText id="alert-dialog-slide-description">
-          Discover your favorite movies with ease using our Movie Search Engine. Simply enter the title and explore
-          detailed information.
-        </DialogContentText>
-        <SearchInput
-          onChange={(e) => debouncedSearch(e.target.value)}
-          searchInput={searchInput}
-          style={{ margin: '13px 0px 13px -10px' }}
-        />
-        <Grid container spacing={1} display={'flex'} alignItems={'center'}>
-          {searchResults.map((item) => (
-            <Grid key={item.imdb_id} item xs={12}>
-              <Box key={item.imdb_id} className={styles.movieBox}>
-                <Box sx={{ width: '70px', height: '90px' }}>
-                  <img style={{ width: '100%', height: '100%' }} src={item.image} alt={item.title} />
-                </Box>
-                <Box sx={{ width: '100%' }} p={1.4}>
-                  <Box display={'flex'} flexDirection={'column'} gap={1}>
-                    <span className={styles.title}>{item.title}</span>
-                    <span className={styles.credits}>{item.credits}</span>
+        <Box className={styles.header}>
+          <DialogContentText id="alert-dialog-slide-description">
+            Discover your favorite movies with ease using our Movie Search Engine. Simply enter the title and explore
+            detailed information.
+          </DialogContentText>
+          <SearchInput
+            onChange={(e) => debouncedSearch(e.target.value)}
+            searchInput={searchInput}
+            style={{ margin: '13px 0px 13px -10px' }}
+          />
+        </Box>
+        {searchResults.length !== 0 && (
+          <Grid container spacing={1} className={styles.resultsContainer}>
+            {searchResults.map((item) => (
+              <Grid key={item.imdb_id} item xs={6}>
+                <Box className={styles.movieBox}>
+                  <Box sx={{ width: '110px', height: '90px' }}>
+                    <img style={{ width: '100%', height: '100%' }} src={item.image} alt={item.title} />
+                  </Box>
+                  <Box sx={{ width: '100%' }} p={1.4}>
+                    <Box display={'flex'} flexDirection={'column'} gap={1}>
+                      <span className={styles.title}>
+                        {item.title} ({item.year})
+                      </span>
+                      <span className={styles.credits}>{item.credits}</span>
+                    </Box>
                   </Box>
                 </Box>
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
+              </Grid>
+            ))}
+          </Grid>
+        )}
       </DialogContent>
     </Dialog>
   );
