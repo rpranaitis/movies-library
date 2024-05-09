@@ -1,11 +1,11 @@
 import SearchIcon from '@mui/icons-material/Search';
 import styles from './SearchInput.module.scss';
 
-const SearchInput = (props) => {
+const SearchInput = ({ ...props }) => {
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} {...props}>
       <SearchIcon style={{ fontSize: 25 }} className={styles.icon} />
-      <input className={styles.input} type="text" {...props} />
+      <input className={styles.input} type="text" />
     </div>
   );
 };

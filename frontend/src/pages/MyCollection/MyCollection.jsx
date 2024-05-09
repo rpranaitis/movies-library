@@ -3,12 +3,17 @@ import Box from '@mui/material//Box';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import SearchInput from '../../components/SearchInput/SearchInput';
+import SearchMovieModal from '../../components/SearchMovieModal/SearchMovieModal';
 import Subheader from '../../components/Subheader/Subheader';
 import styles from './MyCollection.module.scss';
+import { useState } from 'react';
 
 const MyCollection = () => {
+  const [showSearchMovieModal, setShowSearchMovieModal] = useState(false);
+
   return (
     <>
+      <SearchMovieModal show={showSearchMovieModal} onClose={() => setShowSearchMovieModal(false)} />
       <Subheader className={styles.subheader}>
         <Grid container spacing={3} display={'flex'} alignItems={'center'}>
           <Grid item xs={7}>
@@ -24,6 +29,7 @@ const MyCollection = () => {
           </Grid>
           <Grid item xs={2} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Button
+              onClick={() => setShowSearchMovieModal(true)}
               size="small"
               color="secondary"
               variant="contained"
