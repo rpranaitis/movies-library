@@ -46,7 +46,7 @@ const MovieTrailerDialog = ({ show, data, onClose }) => {
     >
       <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
         <DialogTitle>
-          „{data?.title} ({data?.year})“
+          {data?.title} ({data?.year})
         </DialogTitle>
         <Button onClick={handleClose}>
           <CloseIcon />
