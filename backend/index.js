@@ -2,6 +2,7 @@ const cors = require('cors');
 const express = require('express');
 const authRoutes = require('./routes/authRoutes');
 const imdbRoutes = require('./routes/imdbRoutes');
+const collectionRoutes = require('./routes/collectionRoutes');
 
 require('dotenv').config();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 
 app.use('/auth', authRoutes);
 app.use('/imdb', imdbRoutes);
+app.use('/collection', collectionRoutes);
 
 const PORT = process.env.PORT || 8080;
 

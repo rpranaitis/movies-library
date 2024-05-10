@@ -15,9 +15,13 @@ const App = () => {
 
   useEffect(() => {
     const requestInterceptor = axios.interceptors.request.use((config) => {
+      const token = localStorage.getItem('authToken');
+      config.headers.Authorization = `Bearer ${token}`;
+
       if (!config.dontUseSpinner) {
         setLoading(true);
       }
+
       return config;
     });
 
@@ -26,19 +30,24 @@ const App = () => {
         if (!response.config.dontUseSpinner) {
           setLoading(false);
         }
+
         if (!response.config.dontShowSuccess) {
           setMessage({ text: response.data.message, type: 'success' });
         }
+
         return response;
       },
       (error) => {
         if (!error.response.config.dontUseSpinner) {
           setLoading(false);
         }
+
         if (!error.response.config.dontShowError) {
           setMessage({ text: error.response.data.message, type: 'error' });
+
           return;
         }
+
         throw error;
       }
     );
@@ -71,7 +80,7 @@ const App = () => {
             onClose={handleCloseMessage}
           >
             <Alert onClose={handleCloseMessage} severity={message.type} sx={{ width: '100%' }}>
-              {message.text ?? message.type === 'success' ? 'Unexpected success' : 'Unexpected error.'}
+              {message.text ? message.text : message.type === 'success' ? 'Unexpected success' : 'Unexpected error.'}
             </Alert>
           </Snackbar>
         )}

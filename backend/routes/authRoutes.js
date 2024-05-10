@@ -5,6 +5,7 @@ const rateLimit = require('express-rate-limit');
 const { registerSchema, loginSchema } = require('../validation/authValidationSchemas');
 const { handleError } = require('../validation/errorHandler');
 const { authToken } = require('../middlewares/authMiddlewares');
+const { fetchUserWithInfo } = require('../utils/db');
 
 require('dotenv').config();
 
@@ -62,7 +63,7 @@ router.post('/login', async (req, res) => {
     await loginSchema.validate(req.body, { abortEarly: true });
     const { email, password } = req.body;
 
-    const user = await client.db(process.env.MONGO_DATABASE).collection('users').findOne({ email });
+    const user = await fetchUserWithInfo(email);
 
     if (!user) {
       return res.status(401).send({ message: 'Invalid email or password.' });
@@ -74,7 +75,9 @@ router.post('/login', async (req, res) => {
       }
 
       const userData = {
+        _id: user._id,
         email: user.email,
+        movies: user.movies,
       };
 
       const token = jwt.sign(userData, process.env.AUTH_SECRET_KEY, { expiresIn: '365d' });

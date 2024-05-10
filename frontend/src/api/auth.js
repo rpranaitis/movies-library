@@ -1,16 +1,24 @@
 import axios from 'axios';
-import { API } from './constants';
+import { API, ERROR_MESSAGE } from './constants';
 
 export const registerUser = async (data) => {
   const response = await axios.post(`${API}/auth/register`, data);
 
-  return response.data;
+  if (response) {
+    return response.data;
+  }
+
+  throw ERROR_MESSAGE;
 };
 
 export const loginUser = async (data) => {
   const response = await axios.post(`${API}/auth/login`, data);
 
-  return response.data;
+  if (response) {
+    return response.data;
+  }
+
+  throw ERROR_MESSAGE;
 };
 
 export const checkUser = async () => {
@@ -20,7 +28,14 @@ export const checkUser = async () => {
     headers: {
       Authorization: `Bearer ${token}`,
     },
+    dontUseSpinner: true,
+    dontShowSuccess: true,
+    dontShowError: true,
   });
 
-  return response.data;
+  if (response) {
+    return response.data;
+  }
+
+  throw ERROR_MESSAGE;
 };

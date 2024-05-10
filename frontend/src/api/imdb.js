@@ -1,17 +1,28 @@
 import axios from 'axios';
-import { API } from './constants';
+import { API, ERROR_MESSAGE } from './constants';
 
 export const searchMovie = async (query) => {
-  const token = localStorage.getItem('authToken');
-
   const response = await axios.get(`${API}/imdb?q=${query}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
     dontUseSpinner: true,
     dontShowSuccess: true,
     dontShowError: true,
   });
 
-  return response.data;
+  if (response) {
+    return response.data;
+  }
+
+  throw ERROR_MESSAGE;
+};
+
+export const fetchMovieInfo = async (id) => {
+  const response = await axios.get(`${API}/imdb/${id}`, {
+    dontShowSuccess: true,
+  });
+
+  if (response) {
+    return response.data;
+  }
+
+  throw ERROR_MESSAGE;
 };

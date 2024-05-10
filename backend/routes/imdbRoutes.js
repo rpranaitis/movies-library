@@ -56,7 +56,7 @@ router.get('/:id', authToken, async (req, res) => {
       description: response.plot.plotText.plainText,
       year: response.releaseYear.year,
       genres: response.genres.genres.map((item) => item.text),
-      ratingsSummary: {
+      ratingSummary: {
         rating: response.ratingsSummary.aggregateRating,
         voteCount: response.ratingsSummary.voteCount,
       },
@@ -71,6 +71,10 @@ router.get('/:id', authToken, async (req, res) => {
 
     return res.send(result);
   } catch (error) {
+    if (error.response.status === 404) {
+      return res.status(404).send({ message: 'Movie not found.' });
+    }
+
     return res.status(500).send({ error: error.message });
   }
 });

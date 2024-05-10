@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import { createContext, useEffect, useState } from 'react';
 import { checkUser } from '../api/auth';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../router/constants';
 
 const UserContext = createContext({
   user: null,
@@ -10,6 +12,8 @@ const UserContext = createContext({
 });
 
 const UserProvider = ({ children }) => {
+  const navigate = useNavigate();
+
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -23,6 +27,7 @@ const UserProvider = ({ children }) => {
   const handleLogOut = () => {
     setUser(null);
     localStorage.removeItem('authToken');
+    navigate(ROUTES.HOME);
   };
 
   useEffect(() => {

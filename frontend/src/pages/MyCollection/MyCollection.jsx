@@ -34,7 +34,7 @@ const MyCollection = () => {
               color="secondary"
               variant="contained"
               startIcon={<AddIcon />}
-              sx={{ height: 30, marginRight: 1, px: 3.3 }}
+              sx={{ marginRight: 1, px: 3.3 }}
             >
               Add the movie
             </Button>

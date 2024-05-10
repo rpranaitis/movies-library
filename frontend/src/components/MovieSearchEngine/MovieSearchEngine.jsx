@@ -13,6 +13,8 @@ import debounce from 'debounce';
 import styles from './MovieSearchEngine.module.scss';
 import { forwardRef, useEffect, useState, useRef } from 'react';
 import { searchMovie } from '../../api/imdb';
+import { generatePath, useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../router/constants';
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -22,6 +24,7 @@ const MovieSearchEngine = ({ show, onClose }) => {
   const [open, setOpen] = useState(show);
   const [searchResults, setSearchResults] = useState([]);
   const searchInput = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setOpen(show);
@@ -55,6 +58,12 @@ const MovieSearchEngine = ({ show, onClose }) => {
 
   const debouncedSearch = debounce(handleSearchAction, 300);
 
+  const navigateToMovie = (id) => {
+    return () => {
+      navigate(generatePath(ROUTES.MOVIE, { id }));
+    };
+  };
+
   return (
     <Dialog
       open={open}
@@ -84,7 +93,7 @@ const MovieSearchEngine = ({ show, onClose }) => {
         {searchResults.length !== 0 && (
           <Grid container spacing={1} className={styles.resultsContainer}>
             {searchResults.map((item) => (
-              <Grid key={item.imdb_id} item xs={6}>
+              <Grid onClick={navigateToMovie(item.imdb_id)} key={item.imdb_id} item xs={6} sx={{ cursor: 'pointer' }}>
                 <Box className={styles.movieBox}>
                   <Box sx={{ width: '110px', height: '90px' }}>
                     <img style={{ width: '100%', height: '100%' }} src={item.image} alt={item.title} />

@@ -1,0 +1,19 @@
+.subheader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 17px;
+  height: 100%;
+}
+
+.container {
+  padding: 30px;
+  font-size: 15px;
+  overflow-y: scroll;
+  height: calc(100vh - 150px);
+}
+
+.detailKey {
+  font-weight: bold;
+  font-size: 14px;
+}
