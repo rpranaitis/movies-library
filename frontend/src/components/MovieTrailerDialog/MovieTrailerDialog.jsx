@@ -7,7 +7,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import PropTypes from 'prop-types';
 import CloseIcon from '@mui/icons-material/Close';
-import styles from './MovieTrailerDialog.module.scss';
 import { forwardRef, useEffect, useState, useRef } from 'react';
 
 const Transition = forwardRef(function Transition(props, ref) {

@@ -13,9 +13,12 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieInfo } from '../../api/imdb';
 import { addMovieToCollection } from '../../api/collection';
+import { useContext } from 'react';
+import { UserContext } from '../../contexts/UserContext';
 
 const Movie = () => {
   const { id } = useParams();
+  const { user } = useContext(UserContext);
   const [movie, setMovie] = useState(null);
   const [openMovieTrailer, setOpenMovieTrailer] = useState(false);
 
@@ -83,16 +86,18 @@ const Movie = () => {
             <Grid item xs={9.5}>
               <Stack spacing={2.5}>
                 <Box display={'flex'} gap={2}>
-                  <Button
-                    onClick={() => handleMovieAddition()}
-                    size="small"
-                    color="secondary"
-                    variant="contained"
-                    startIcon={<AddIcon />}
-                    sx={{ width: 'fit-content', px: 2 }}
-                  >
-                    Add To Collection
-                  </Button>
+                  {!user.movies.find((item) => item.imdb_id === movie.imdb_id) && (
+                    <Button
+                      onClick={() => handleMovieAddition()}
+                      size="small"
+                      color="secondary"
+                      variant="contained"
+                      startIcon={<AddIcon />}
+                      sx={{ width: 'fit-content', px: 2 }}
+                    >
+                      Add To Collection
+                    </Button>
+                  )}
                   <Button
                     onClick={() => setOpenMovieTrailer(true)}
                     size="small"
