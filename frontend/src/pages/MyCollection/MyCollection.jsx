@@ -54,6 +54,9 @@ const MyCollection = () => {
   };
 
   const searchMoviesByTitle = (query) => {
+    setNewestSorting(false);
+    setPopularitySorting(false);
+
     const filteredMovies = user.movies.filter((movie) => {
       const lowercaseTitle = movie.title.toLowerCase();
 
