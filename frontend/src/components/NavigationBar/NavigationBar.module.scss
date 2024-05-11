@@ -6,6 +6,12 @@
 .items {
   padding: 15px;
   margin: 15px 0 15px 0;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 400px;
+  font-size: 12px;
 }
 
 .item {
@@ -16,6 +22,14 @@
   background: #4c5370;
   padding: 10px;
   border-radius: 5px;
+}
+
+.genreItem {
+  margin-bottom: 5px;
+  width: calc(50% - 5px);
+  display: flex;
+  align-items: center;
+  user-select: none;
 }
 
 .genreCircle {
@@ -30,4 +44,10 @@
   margin-right: 5px;
   font-size: 9px;
   font-weight: 600;
+  cursor: pointer;
+}
+
+.selectedGenreCircle {
+  background: #323649;
+  border: 1px solid white;
 }

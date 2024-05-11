@@ -10,16 +10,20 @@ import StarIcon from '@mui/icons-material/Star';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
+import { GenreContext } from '../../contexts/GenreContext';
 import { generatePath, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../router/constants';
 
 const MyCollection = () => {
   const { user } = useContext(UserContext);
+  const { selectedGenre } = useContext(GenreContext);
   const [openMovieSearchEngine, setOpenMovieSearchEngine] = useState(false);
   const [movies, setMovies] = useState(user.movies);
   const [newestSorting, setNewestSorting] = useState(false);
   const [popularitySorting, setPopularitySorting] = useState(false);
   const navigate = useNavigate();
+
+  const filteredItems = selectedGenre ? movies.filter((item) => item.genres.find((x) => x === selectedGenre)) : movies;
 
   const navigateToMovie = (id) => {
     navigate(generatePath(ROUTES.MOVIE, { id }));
@@ -84,14 +88,14 @@ const MyCollection = () => {
 
     const normalizedQuery = normalizeString(query).toLowerCase();
 
-    const filteredMovies = user.movies.filter((movie) => {
+    const filteredResults = user.movies.filter((movie) => {
       const normalizedTitle = normalizeString(movie.title).toLowerCase();
       const normalizedPrimaryTitle = normalizeString(movie.primaryTitle).toLowerCase();
 
       return normalizedTitle.includes(normalizedQuery) || normalizedPrimaryTitle.includes(normalizedQuery);
     });
 
-    setMovies(filteredMovies);
+    setMovies(filteredResults);
   };
 
   return (
@@ -135,9 +139,9 @@ const MyCollection = () => {
         </Grid>
       </Subheader>
       <div className={styles.container}>
-        {movies.length > 0 ? (
+        {filteredItems.length > 0 ? (
           <Grid container spacing={3}>
-            {movies.map((item) => (
+            {filteredItems.map((item) => (
               <Grid key={item.imdbId} item xs={2}>
                 <Box display={'flex'} flexDirection={'column'} gap={1.5}>
                   <Box className={styles.imageWrapper}>

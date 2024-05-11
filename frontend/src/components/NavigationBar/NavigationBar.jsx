@@ -7,10 +7,12 @@ import { Link, useLocation } from 'react-router-dom';
 import { ROUTES, navigationBarRoutes } from '../../router/constants';
 import { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
+import { GenreContext } from '../../contexts/GenreContext';
 
 const NavigationBar = () => {
   const location = useLocation();
   const { user } = useContext(UserContext);
+  const { selectedGenre, selectGenre } = useContext(GenreContext);
 
   const getGenresWithCount = () => {
     const genreCounts = {};
@@ -46,26 +48,26 @@ const NavigationBar = () => {
           </Link>
         ))}
       </Stack>
-      <NavTitle>COLLECTION</NavTitle>
-      <Box
-        className={styles.items}
-        color={'white'}
-        display="flex"
-        flexWrap="wrap"
-        justifyContent="space-between"
-        gap={0.2}
-        maxWidth="400px"
-        fontSize={12}
-      >
-        {Object.entries(getGenresWithCount()).map(([genre, count], index) => (
-          <div
-            key={index}
-            style={{ marginBottom: '5px', width: 'calc(50% - 5px)', display: 'flex', alignItems: 'center' }}
-          >
-            <div className={styles.genreCircle}>{count}</div>
-            {genre}
-          </div>
-        ))}
+      <Box display={location.pathname === ROUTES.HOME ? 'block' : 'none'}>
+        <NavTitle>COLLECTION</NavTitle>
+        <Box className={styles.items} gap={0.2}>
+          {Object.entries(getGenresWithCount()).map(([genre, count], index) => (
+            <div key={index} className={styles.genreItem}>
+              <div
+                onClick={() => (selectedGenre === genre ? selectGenre(null) : selectGenre(genre))}
+                className={`${styles.genreCircle} ${genre === selectedGenre ? styles.selectedGenreCircle : ''}`}
+              >
+                {count}
+              </div>
+              <span
+                onClick={() => (selectedGenre === genre ? selectGenre(null) : selectGenre(genre))}
+                style={{ cursor: 'pointer' }}
+              >
+                {genre}
+              </span>
+            </div>
+          ))}
+        </Box>
       </Box>
     </nav>
   );
