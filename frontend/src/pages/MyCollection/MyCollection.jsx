@@ -16,10 +16,41 @@ import { ROUTES } from '../../router/constants';
 const MyCollection = () => {
   const { user } = useContext(UserContext);
   const [openMovieSearchEngine, setOpenMovieSearchEngine] = useState(false);
+  const [movies, setMovies] = useState(user.movies);
+  const [newestSorting, setNewestSorting] = useState(false);
+  const [popularitySorting, setPopularitySorting] = useState(false);
   const navigate = useNavigate();
 
   const navigateToMovie = (id) => {
     navigate(generatePath(ROUTES.MOVIE, { id }));
+  };
+
+  const sortMoviesByNewest = () => {
+    if (newestSorting) {
+      setMovies(user.movies);
+      setNewestSorting(false);
+
+      return;
+    }
+
+    const sortedMovies = [...movies].sort((a, b) => b.year - a.year);
+    setMovies(sortedMovies);
+    setPopularitySorting(false);
+    setNewestSorting(true);
+  };
+
+  const sortMoviesByPopularity = () => {
+    if (popularitySorting) {
+      setMovies(user.movies);
+      setPopularitySorting(false);
+
+      return;
+    }
+
+    const sortedMovies = [...movies].sort((a, b) => b.rating - a.rating);
+    setMovies(sortedMovies);
+    setPopularitySorting(true);
+    setNewestSorting(false);
   };
 
   return (
@@ -31,10 +62,20 @@ const MyCollection = () => {
             <SearchInput placeholder={'Search Movies'} />
           </Grid>
           <Grid item xs={4} sx={{ display: 'flex', gap: 1 }}>
-            <Button size="small" variant="text" sx={{ height: 30, px: 3.3 }}>
+            <Button
+              onClick={() => sortMoviesByNewest()}
+              size="small"
+              variant={newestSorting ? 'outlined' : 'text'}
+              sx={{ height: 30, px: 3.3 }}
+            >
               New Movies
             </Button>
-            <Button size="small" variant="text" sx={{ height: 30, px: 3.3 }}>
+            <Button
+              onClick={() => sortMoviesByPopularity()}
+              size="small"
+              variant={popularitySorting ? 'outlined' : 'text'}
+              sx={{ height: 30, px: 3.3 }}
+            >
               Popular Movies
             </Button>
           </Grid>
@@ -53,9 +94,9 @@ const MyCollection = () => {
         </Grid>
       </Subheader>
       <div className={styles.container}>
-        {user.movies.length > 0 ? (
+        {movies.length > 0 ? (
           <Grid container spacing={3}>
-            {user.movies.map((item) => (
+            {movies.map((item) => (
               <Grid key={item.imdb_id} item xs={2}>
                 <Box display={'flex'} flexDirection={'column'} gap={1.5}>
                   <Box className={styles.imageWrapper}>
