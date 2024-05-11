@@ -21,7 +21,7 @@ router.get('/', authToken, async (req, res) => {
 
     const result = filteredData.map((item) => {
       return {
-        imdb_id: item.id,
+        imdbId: item.id,
         title: item.l,
         year: item.y,
         credits: item.s,
@@ -52,8 +52,9 @@ router.get('/:id', authToken, async (req, res) => {
     const response = obj.props.pageProps.aboveTheFoldData;
 
     const result = {
-      imdb_id: response.id,
+      imdbId: response.id,
       title: response.originalTitleText.text,
+      primaryTitle: response.titleText.text,
       description: response.plot.plotText.plainText,
       year: response.releaseYear.year,
       genres: response.genres.genres.map((item) => item.text),

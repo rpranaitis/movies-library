@@ -12,14 +12,14 @@ const client = require('../config/db');
 router.post('/', authToken, async (req, res) => {
   try {
     await addingSchema.validate(req.body, { abortEarly: true });
-    const { imdb_id, title, year, genres, rating, runtime, image } = req.body;
+    const { imdbId, title, primaryTitle, year, genres, rating, runtime, image } = req.body;
 
     const existingMovie = await client
       .db(process.env.MONGO_DATABASE)
       .collection('movies')
       .findOne({
-        user_id: new ObjectId(`${req.user._id}`),
-        imdb_id: imdb_id,
+        userId: new ObjectId(`${req.user._id}`),
+        imdbId: imdbId,
       });
 
     if (existingMovie) {
@@ -29,16 +29,17 @@ router.post('/', authToken, async (req, res) => {
     const createdAt = new Date().toLocaleString();
 
     const data = {
-      user_id: new ObjectId(`${req.user._id}`),
-      imdb_id,
+      userId: new ObjectId(`${req.user._id}`),
+      imdbId,
       title,
+      primaryTitle,
       year,
       genres,
       rating,
       runtime,
       image,
-      created_at: createdAt,
-      updated_at: createdAt,
+      createdAt,
+      updatedAt: createdAt,
     };
 
     const response = await client.db(process.env.MONGO_DATABASE).collection('movies').insertOne(data);
@@ -55,7 +56,7 @@ router.delete('/:id', authToken, async (req, res) => {
   const { id } = req.params;
 
   try {
-    const response = await client.db(process.env.MONGO_DATABASE).collection('movies').deleteOne({ imdb_id: id, user_id: req.user._id });
+    const response = await client.db(process.env.MONGO_DATABASE).collection('movies').deleteOne({ imdbId: id, userId: req.user._id });
 
     if (response.deletedCount === 0) {
       return res.status(400).send({ message: `Movie was not found in your collection.` });

@@ -51,10 +51,7 @@ router.post('/register', async (req, res) => {
 
       const createdAt = new Date().toLocaleString();
 
-      await client
-        .db(process.env.MONGO_DATABASE)
-        .collection('users')
-        .insertOne({ email, password: hash, created_at: createdAt, updated_at: createdAt });
+      await client.db(process.env.MONGO_DATABASE).collection('users').insertOne({ email, password: hash, createdAt, updatedAt: createdAt });
 
       return res.status(201).send({ message: 'Registration successfull. Now you can sign in.' });
     });

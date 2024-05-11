@@ -53,14 +53,39 @@ const MyCollection = () => {
     setNewestSorting(false);
   };
 
+  const normalizeString = (str) => {
+    const accentMap = {
+      ą: 'a',
+      č: 'c',
+      ę: 'e',
+      ė: 'e',
+      į: 'i',
+      š: 's',
+      ų: 'u',
+      ū: 'u',
+      ž: 'z',
+      Ą: 'A',
+      Č: 'C',
+      Ę: 'E',
+      Ė: 'E',
+      Į: 'I',
+      Š: 'S',
+      Ų: 'U',
+      Ū: 'U',
+      Ž: 'Z',
+    };
+
+    return str.replace(/[ąčęėįšųūžĄČĘĖĮŠŲŪŽ]/g, (match) => accentMap[match]);
+  };
+
   const searchMoviesByTitle = (query) => {
-    setNewestSorting(false);
-    setPopularitySorting(false);
+    const normalizedQuery = normalizeString(query).toLowerCase();
 
     const filteredMovies = user.movies.filter((movie) => {
-      const lowercaseTitle = movie.title.toLowerCase();
+      const normalizedTitle = normalizeString(movie.title).toLowerCase();
+      const normalizedPrimaryTitle = normalizeString(movie.primaryTitle).toLowerCase();
 
-      return lowercaseTitle.includes(query.toLowerCase());
+      return normalizedTitle.includes(normalizedQuery) || normalizedPrimaryTitle.includes(normalizedQuery);
     });
 
     setMovies(filteredMovies);
@@ -110,11 +135,11 @@ const MyCollection = () => {
         {movies.length > 0 ? (
           <Grid container spacing={3}>
             {movies.map((item) => (
-              <Grid key={item.imdb_id} item xs={2}>
+              <Grid key={item.imdbId} item xs={2}>
                 <Box display={'flex'} flexDirection={'column'} gap={1.5}>
                   <Box className={styles.imageWrapper}>
                     <img
-                      onClick={() => navigateToMovie(item.imdb_id)}
+                      onClick={() => navigateToMovie(item.imdbId)}
                       className={styles.image}
                       src={item.image}
                       alt={item.title}

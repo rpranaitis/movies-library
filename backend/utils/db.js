@@ -12,7 +12,7 @@ const fetchUserWithInfo = async (email) => {
         $lookup: {
           from: 'movies',
           localField: '_id',
-          foreignField: 'user_id',
+          foreignField: 'userId',
           as: 'movies',
         },
       },
@@ -23,15 +23,15 @@ const fetchUserWithInfo = async (email) => {
         },
       },
       {
-        $sort: { 'movies.created_at': -1 },
+        $sort: { 'movies.createdAt': -1 },
       },
       {
         $group: {
           _id: '$_id',
           email: { $first: '$email' },
           password: { $first: '$password' },
-          created_at: { $first: '$created_at' },
-          updated_at: { $first: '$updated_at' },
+          createdAt: { $first: '$createdAt' },
+          updatedAt: { $first: '$updatedAt' },
           movies: { $push: '$movies' },
         },
       },
@@ -46,8 +46,8 @@ const userDataResponse = (user) => {
     _id: user._id,
     email: user.email,
     movies: user.movies,
-    created_at: user.created_at,
-    updated_at: user.updated_at,
+    createdAt: user.createdAt,
+    updatedAt: user.updatedAt,
   };
 };
 

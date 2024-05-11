@@ -36,8 +36,9 @@ const Movie = () => {
 
   const handleMovieAddition = async () => {
     const data = {
-      imdb_id: movie.imdb_id,
+      imdbId: movie.imdbId,
       title: movie.title,
+      primaryTitle: movie.primaryTitle,
       year: movie.year,
       genres: movie.genres,
       rating: movie.ratingSummary.rating,
@@ -55,8 +56,8 @@ const Movie = () => {
 
   const handleMovieRemove = async () => {
     try {
-      const response = await removeMovieFromCollection(movie.imdb_id);
-      user.movies = user.movies.filter((item) => item.imdb_id !== movie.imdb_id);
+      const response = await removeMovieFromCollection(movie.imdbId);
+      user.movies = user.movies.filter((item) => item.imdbId !== movie.imdbId);
     } catch (error) {
       console.error(error);
     }
@@ -97,7 +98,7 @@ const Movie = () => {
             <Grid item xs={9.5}>
               <Stack spacing={2.5}>
                 <Box display={'flex'} gap={2}>
-                  {!user.movies.find((item) => item.imdb_id === movie.imdb_id) ? (
+                  {!user.movies.find((item) => item.imdbId === movie.imdbId) ? (
                     <Button
                       onClick={() => handleMovieAddition()}
                       size="small"
