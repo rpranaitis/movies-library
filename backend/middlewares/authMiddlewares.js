@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { fetchUserWithInfo } = require('../utils/db');
+const { fetchUserWithInfo, userDataResponse } = require('../utils/db');
 
 const authToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
@@ -20,13 +20,7 @@ const authToken = (req, res, next) => {
       return res.sendStatus(404);
     }
 
-    const userData = {
-      _id: userWithInfo._id,
-      email: userWithInfo.email,
-      movies: userWithInfo.movies,
-    };
-
-    req.user = userData;
+    req.user = userDataResponse(userWithInfo);
     next();
   });
 };

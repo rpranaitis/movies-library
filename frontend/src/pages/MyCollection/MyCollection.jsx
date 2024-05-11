@@ -9,10 +9,17 @@ import styles from './MyCollection.module.scss';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
+import { generatePath, useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../router/constants';
 
 const MyCollection = () => {
   const { user } = useContext(UserContext);
   const [openMovieSearchEngine, setOpenMovieSearchEngine] = useState(false);
+  const navigate = useNavigate();
+
+  const navigateToMovie = (id) => {
+    navigate(generatePath(ROUTES.MOVIE, { id }));
+  };
 
   return (
     <>
@@ -45,12 +52,18 @@ const MyCollection = () => {
         </Grid>
       </Subheader>
       <div className={styles.container}>
-        <Box display={'flex'}>
+        {user.movies.length > 0 ? (
           <Grid container spacing={3}>
             {user.movies.map((item) => (
-              <Grid item xs={2}>
+              <Grid key={item.imdb_id} item xs={2}>
                 <Box display={'flex'} flexDirection={'column'} gap={1.5}>
-                  <img className={styles.image} src={item.image} alt={item.title} />
+                  <img
+                    onClick={() => navigateToMovie(item.imdb_id)}
+                    className={styles.image}
+                    src={item.image}
+                    alt={item.title}
+                    style={{ cursor: 'pointer' }}
+                  />
                   <Box display={'flex'} flexDirection={'column'} gap={0.5} sx={{ overflowWrap: 'anywhere' }}>
                     <span>
                       {item.title} ({item.year})
@@ -61,7 +74,9 @@ const MyCollection = () => {
               </Grid>
             ))}
           </Grid>
-        </Box>
+        ) : (
+          <span>You have an empty collection</span>
+        )}
       </div>
     </>
   );

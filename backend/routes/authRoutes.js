@@ -5,7 +5,7 @@ const rateLimit = require('express-rate-limit');
 const { registerSchema, loginSchema } = require('../validation/authValidationSchemas');
 const { handleError } = require('../validation/errorHandler');
 const { authToken } = require('../middlewares/authMiddlewares');
-const { fetchUserWithInfo } = require('../utils/db');
+const { fetchUserWithInfo, userDataResponse } = require('../utils/db');
 
 require('dotenv').config();
 
@@ -30,8 +30,8 @@ const profileLimiter = rateLimit({
   message: { message: 'Too many requests. Please try again later.' },
 });
 
-router.use('/login', loginLimiter);
-router.use('/register', registerLimiter);
+// router.use('/login', loginLimiter);
+// router.use('/register', registerLimiter);
 // router.use('/profile', profileLimiter);
 
 router.post('/register', async (req, res) => {
@@ -49,7 +49,12 @@ router.post('/register', async (req, res) => {
         return handleError(res, error);
       }
 
-      await client.db(process.env.MONGO_DATABASE).collection('users').insertOne({ email, password: hash });
+      const createdAt = new Date().toLocaleString();
+
+      await client
+        .db(process.env.MONGO_DATABASE)
+        .collection('users')
+        .insertOne({ email, password: hash, created_at: createdAt, updated_at: createdAt });
 
       return res.status(201).send({ message: 'Registration successfull. Now you can sign in.' });
     });
@@ -74,11 +79,7 @@ router.post('/login', async (req, res) => {
         return res.status(401).send({ message: 'Invalid email or password.' });
       }
 
-      const userData = {
-        _id: user._id,
-        email: user.email,
-        movies: user.movies,
-      };
+      const userData = userDataResponse(user);
 
       const token = jwt.sign(userData, process.env.AUTH_SECRET_KEY, { expiresIn: '365d' });
 

@@ -26,10 +26,26 @@ router.post('/', authToken, async (req, res) => {
       return res.status(400).send({ message: `Movie „${title}“ already exists in your collection.` });
     }
 
-    const data = { user_id: new ObjectId(`${req.user._id}`), imdb_id, title, year, genres, rating, runtime, image };
-    await client.db(process.env.MONGO_DATABASE).collection('movies').insertOne(data);
+    const createdAt = new Date().toLocaleString();
 
-    return res.status(201).send({ message: `Movie „${title}“ was successfully added to your collection.` });
+    const data = {
+      user_id: new ObjectId(`${req.user._id}`),
+      imdb_id,
+      title,
+      year,
+      genres,
+      rating,
+      runtime,
+      image,
+      created_at: createdAt,
+      updated_at: createdAt,
+    };
+
+    const response = await client.db(process.env.MONGO_DATABASE).collection('movies').insertOne(data);
+
+    data._id = response.insertedId;
+
+    return res.status(201).send({ message: `Movie „${title}“ was added to your collection.`, data });
   } catch (error) {
     return handleError(res, error);
   }

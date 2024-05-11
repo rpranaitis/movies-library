@@ -45,7 +45,8 @@ const Movie = () => {
     };
 
     try {
-      await addMovieToCollection(data);
+      const response = await addMovieToCollection(data);
+      user.movies.unshift(response.data);
     } catch (error) {
       console.error(error);
     }
