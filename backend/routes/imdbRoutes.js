@@ -16,7 +16,8 @@ router.get('/', authToken, async (req, res) => {
 
   try {
     const response = await axios.request(options);
-    const filteredData = response.data.d.filter((item) => item.y && item.i && item.qid === 'movie');
+    const currentYear = new Date().getFullYear();
+    const filteredData = response.data.d.filter((item) => item.y && item.y <= currentYear && item.i && item.qid === 'movie');
 
     const result = filteredData.map((item) => {
       return {
@@ -60,7 +61,7 @@ router.get('/:id', authToken, async (req, res) => {
         rating: response.ratingsSummary.aggregateRating,
         voteCount: response.ratingsSummary.voteCount,
       },
-      runtime: response.runtime.displayableProperty.value.plainText,
+      runtime: response.runtime ? response.runtime.displayableProperty.value.plainText : null,
       image: response.primaryImage.url,
       trailer: response.primaryVideos.edges.length ? response.primaryVideos.edges[0].node.playbackURLs[0].url : null,
       credits: response.principalCredits
@@ -71,7 +72,7 @@ router.get('/:id', authToken, async (req, res) => {
 
     return res.send(result);
   } catch (error) {
-    if (error.response.status === 404) {
+    if (error?.response?.status === 404) {
       return res.status(404).send({ message: 'Movie not found.' });
     }
 

@@ -119,7 +119,7 @@ const Movie = () => {
                 </Box>
                 <Box display={'flex'} flexDirection={'column'} gap={1}>
                   <Box className={styles.detailKey}>Duration</Box>
-                  <Box>{movie.runtime}</Box>
+                  <Box>{movie.runtime ?? '-'}</Box>
                 </Box>
                 <Box display={'flex'} flexDirection={'column'} gap={1}>
                   <Box className={styles.detailKey}>Genres</Box>

@@ -6,6 +6,7 @@ import SearchInput from '../../components/SearchInput/SearchInput';
 import MovieSearchEngine from '../../components/MovieSearchEngine/MovieSearchEngine';
 import Subheader from '../../components/Subheader/Subheader';
 import styles from './MyCollection.module.scss';
+import { FaStar } from 'react-icons/fa';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
@@ -57,18 +58,24 @@ const MyCollection = () => {
             {user.movies.map((item) => (
               <Grid key={item.imdb_id} item xs={2}>
                 <Box display={'flex'} flexDirection={'column'} gap={1.5}>
-                  <img
-                    onClick={() => navigateToMovie(item.imdb_id)}
-                    className={styles.image}
-                    src={item.image}
-                    alt={item.title}
-                    style={{ cursor: 'pointer' }}
-                  />
-                  <Box display={'flex'} flexDirection={'column'} gap={0.5} sx={{ overflowWrap: 'anywhere' }}>
+                  <Box className={styles.imageWrapper}>
+                    <img
+                      onClick={() => navigateToMovie(item.imdb_id)}
+                      className={styles.image}
+                      src={item.image}
+                      alt={item.title}
+                      style={{ cursor: 'pointer' }}
+                    />
+                    <Box className={styles.rating}>
+                      <FaStar className={styles.ratingIcon} />
+                      <span>{item.rating}</span>
+                    </Box>
+                  </Box>
+                  <Box display={'flex'} flexDirection={'column'} gap={0.65} sx={{ overflowWrap: 'anywhere' }}>
                     <span>
                       {item.title} ({item.year})
                     </span>
-                    <span className={styles.genre}>{item.genres[0]}</span>
+                    <span className={styles.genre}>{item.genres.join(' / ')}</span>
                   </Box>
                 </Box>
               </Grid>
