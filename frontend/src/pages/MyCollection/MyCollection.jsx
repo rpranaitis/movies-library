@@ -79,6 +79,9 @@ const MyCollection = () => {
   };
 
   const searchMoviesByTitle = (query) => {
+    setNewestSorting(false);
+    setPopularitySorting(false);
+
     const normalizedQuery = normalizeString(query).toLowerCase();
 
     const filteredMovies = user.movies.filter((movie) => {
