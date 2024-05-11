@@ -1,6 +1,7 @@
 import Subheader from '../../components/Subheader/Subheader';
 import styles from './Movie.module.scss';
 import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -12,7 +13,7 @@ import imdbLogo from '../../assets/imdb-logo.png';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieInfo } from '../../api/imdb';
-import { addMovieToCollection } from '../../api/collection';
+import { addMovieToCollection, removeMovieFromCollection } from '../../api/collection';
 import { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 
@@ -52,6 +53,15 @@ const Movie = () => {
     }
   };
 
+  const handleMovieRemove = async () => {
+    try {
+      const response = await removeMovieFromCollection(movie.imdb_id);
+      user.movies = user.movies.filter((item) => item.imdb_id !== movie.imdb_id);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <MovieTrailerDialog show={openMovieTrailer} data={movie} onClose={() => setOpenMovieTrailer(false)} />
@@ -70,7 +80,7 @@ const Movie = () => {
               <img style={{ height: '100%' }} src={imdbLogo} alt="IMDB Logo" />
               <Box display={'flex'} flexDirection={'column'} gap={0.5}>
                 <span>
-                  <span style={{ fontWeight: 700 }}>{movie.ratingSummary.rating}</span> / 10
+                  <span style={{ fontWeight: 700 }}>{movie.ratingSummary.rating.toFixed(1)}</span> / 10
                 </span>
                 <span style={{ fontSize: 12 }}>{movie.ratingSummary.voteCount}</span>
               </Box>
@@ -87,7 +97,7 @@ const Movie = () => {
             <Grid item xs={9.5}>
               <Stack spacing={2.5}>
                 <Box display={'flex'} gap={2}>
-                  {!user.movies.find((item) => item.imdb_id === movie.imdb_id) && (
+                  {!user.movies.find((item) => item.imdb_id === movie.imdb_id) ? (
                     <Button
                       onClick={() => handleMovieAddition()}
                       size="small"
@@ -97,6 +107,17 @@ const Movie = () => {
                       sx={{ width: 'fit-content', px: 2 }}
                     >
                       Add To Collection
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => handleMovieRemove()}
+                      size="small"
+                      color="error"
+                      variant="contained"
+                      startIcon={<RemoveIcon />}
+                      sx={{ width: 'fit-content', px: 2 }}
+                    >
+                      Remove From Collection
                     </Button>
                   )}
                   <Button

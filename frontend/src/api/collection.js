@@ -10,3 +10,13 @@ export const addMovieToCollection = async (data) => {
 
   throw ERROR_MESSAGE;
 };
+
+export const removeMovieFromCollection = async (id) => {
+  const response = await axios.delete(`${API}/collection/${id}`);
+
+  if (response) {
+    return response.data;
+  }
+
+  throw ERROR_MESSAGE;
+};

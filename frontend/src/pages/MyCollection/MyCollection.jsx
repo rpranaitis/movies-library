@@ -6,7 +6,7 @@ import SearchInput from '../../components/SearchInput/SearchInput';
 import MovieSearchEngine from '../../components/MovieSearchEngine/MovieSearchEngine';
 import Subheader from '../../components/Subheader/Subheader';
 import styles from './MyCollection.module.scss';
-import { FaStar } from 'react-icons/fa';
+import StarIcon from '@mui/icons-material/Star';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
@@ -67,8 +67,8 @@ const MyCollection = () => {
                       style={{ cursor: 'pointer' }}
                     />
                     <Box className={styles.rating}>
-                      <FaStar className={styles.ratingIcon} />
-                      <span>{item.rating}</span>
+                      <StarIcon className={styles.ratingIcon} />
+                      <span>{item.rating.toFixed(1)}</span>
                     </Box>
                   </Box>
                   <Box display={'flex'} flexDirection={'column'} gap={0.65} sx={{ overflowWrap: 'anywhere' }}>

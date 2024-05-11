@@ -53,7 +53,7 @@ const MovieTrailerDialog = ({ show, data, onClose }) => {
         </Button>
       </Box>
       <DialogContent sx={{ paddingTop: 0 }}>
-        <DialogContentText id="alert-dialog-slide-description" pb={1}>
+        <DialogContentText id="alert-dialog-slide-description" pb={1.5} fontSize={14}>
           {data?.description}
         </DialogContentText>
         <iframe ref={iframeRef} width={'100%'} height={300} title="video" src={data?.trailer} allowFullScreen></iframe>

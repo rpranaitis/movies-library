@@ -51,4 +51,20 @@ router.post('/', authToken, async (req, res) => {
   }
 });
 
+router.delete('/:id', authToken, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const response = await client.db(process.env.MONGO_DATABASE).collection('movies').deleteOne({ imdb_id: id, user_id: req.user._id });
+
+    if (response.deletedCount === 0) {
+      return res.status(400).send({ message: `Movie was not found in your collection.` });
+    }
+
+    return res.send({ message: 'Movie was removed from your collection.' });
+  } catch (error) {
+    return handleError(res, error);
+  }
+});
+
 module.exports = router;
