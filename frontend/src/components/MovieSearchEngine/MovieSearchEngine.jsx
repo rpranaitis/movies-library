@@ -84,11 +84,13 @@ const MovieSearchEngine = ({ show, onClose }) => {
             Discover your favorite movies with ease using our Movie Search Engine. Simply enter the title and explore
             detailed information.
           </DialogContentText>
-          <SearchInput
-            onChange={(e) => debouncedSearch(e.target.value)}
-            searchInput={searchInput}
-            style={{ margin: '13px 0px 13px -10px' }}
-          />
+          <Box sx={{ margin: '13px 0px 13px -10px' }}>
+            <SearchInput
+              onChange={(e) => debouncedSearch(e.target.value)}
+              searchInput={searchInput}
+              placeholder="Search Movies"
+            />
+          </Box>
         </Box>
         {searchResults.length !== 0 && (
           <Grid container spacing={1} className={styles.resultsContainer}>

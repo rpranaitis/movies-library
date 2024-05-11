@@ -53,13 +53,23 @@ const MyCollection = () => {
     setNewestSorting(false);
   };
 
+  const searchMoviesByTitle = (query) => {
+    const filteredMovies = user.movies.filter((movie) => {
+      const lowercaseTitle = movie.title.toLowerCase();
+
+      return lowercaseTitle.includes(query.toLowerCase());
+    });
+
+    setMovies(filteredMovies);
+  };
+
   return (
     <>
       <MovieSearchEngine show={openMovieSearchEngine} onClose={() => setOpenMovieSearchEngine(false)} />
       <Subheader className={styles.subheader}>
         <Grid container spacing={3} display={'flex'} alignItems={'center'}>
           <Grid item xs={5}>
-            <SearchInput placeholder={'Search Movies'} />
+            <SearchInput onChange={(e) => searchMoviesByTitle(e.target.value)} placeholder="Search Movies" />
           </Grid>
           <Grid item xs={4} sx={{ display: 'flex', gap: 1 }}>
             <Button
@@ -123,7 +133,7 @@ const MyCollection = () => {
             ))}
           </Grid>
         ) : (
-          <span>You have an empty collection</span>
+          <span>No results</span>
         )}
       </div>
     </>
