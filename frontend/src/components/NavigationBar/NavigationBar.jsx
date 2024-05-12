@@ -61,7 +61,7 @@ const NavigationBar = () => {
               </div>
               <span
                 onClick={() => (selectedGenre === genre ? selectGenre(null) : selectGenre(genre))}
-                style={{ cursor: 'pointer' }}
+                className={styles.genreText}
               >
                 {genre}
               </span>
