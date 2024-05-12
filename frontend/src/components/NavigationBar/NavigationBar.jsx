@@ -49,7 +49,7 @@ const NavigationBar = () => {
         ))}
       </Stack>
       <Box display={location.pathname === ROUTES.HOME ? 'block' : 'none'}>
-        <NavTitle>GENRES</NavTitle>
+        <NavTitle>COLLECTION</NavTitle>
         <Box className={styles.items} gap={0.2}>
           {Object.entries(getGenresWithCount()).map(([genre, count], index) => (
             <div key={index} className={styles.genreItem}>
