@@ -3,7 +3,7 @@
   flex-direction: column;
   padding: 30px;
 
-  @media only screen and (min-width: 900px) {
+  @media only screen and (min-width: 992px) {
     overflow-y: scroll;
     height: calc(100vh - 150px);
   }
@@ -20,13 +20,13 @@
   justify-content: center;
   gap: 10px;
 
-  @media only screen and (max-width: 899px) {
+  @media only screen and (max-width: 991px) {
     padding-top: 20px !important;
   }
 }
 
 .addButtonWrapper {
-  @media only screen and (max-width: 899px) {
+  @media only screen and (max-width: 991px) {
     padding-top: 20px !important;
   }
 
@@ -34,7 +34,7 @@
     width: 100%;
   }
 
-  @media only screen and (min-width: 900px) {
+  @media only screen and (min-width: 992px) {
     display: flex;
     justify-content: flex-end;
 
@@ -58,16 +58,28 @@
   height: 210px;
   position: relative;
 
-  @media only screen and (min-width: 467px) {
-    height: 300px;
+  @media only screen and (min-width: 440px) {
+    height: 280px;
   }
 
-  @media only screen and (min-width: 600px) {
+  @media only screen and (min-width: 576px) {
     height: 240px;
   }
 
-  @media only screen and (min-width: 750px) {
+  @media only screen and (min-width: 650px) {
+    height: 265px;
+  }
+
+  @media only screen and (min-width: 768px) {
     height: 300px;
+  }
+
+  @media only screen and (min-width: 850px) {
+    height: 340px;
+  }
+
+  @media only screen and (min-width: 992px) {
+    height: 240px;
   }
 }
 

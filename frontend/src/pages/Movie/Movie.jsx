@@ -10,6 +10,7 @@ import Stack from '@mui/material/Stack';
 import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
 import MovieTrailerDialog from '../../components/MovieTrailerDialog/MovieTrailerDialog';
 import imdbLogo from '../../assets/imdb-logo.png';
+import { useMediaQuery } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchMovieInfo } from '../../api/imdb';
@@ -71,6 +72,8 @@ const Movie = () => {
     }
   };
 
+  const isSmallScreen = useMediaQuery('(max-width:575px)');
+
   return (
     <>
       <MovieTrailerDialog show={openMovieTrailer} data={movie} onClose={() => setOpenMovieTrailer(false)} />
@@ -80,18 +83,18 @@ const Movie = () => {
             {`${movie.title} (${movie.year})`}
             <Box display={'flex'} alignItems={'center'} gap={2} height={'100%'}>
               <Rating
-                sx={{ fontSize: '1.3rem' }}
+                sx={{ fontSize: isSmallScreen ? '1rem' : '1.3rem' }}
                 defaultValue={movie.ratingSummary.rating}
                 max={10}
                 precision={0.1}
                 readOnly
               />
-              <img style={{ height: '100%' }} src={imdbLogo} alt="IMDB Logo" />
+              <img style={{ width: 50, height: 50 }} src={imdbLogo} alt="IMDB Logo" />
               <Box display={'flex'} flexDirection={'column'} gap={0.5}>
                 <span>
                   <span style={{ fontWeight: 700 }}>{movie.ratingSummary.rating.toFixed(1)}</span> / 10
                 </span>
-                <span style={{ fontSize: 12 }}>{movie.ratingSummary.voteCount}</span>
+                <span style={{ fontSize: isSmallScreen ? 10 : 12 }}>{movie.ratingSummary.voteCount}</span>
               </Box>
             </Box>
           </Box>
@@ -100,41 +103,44 @@ const Movie = () => {
       {movie && (
         <div className={styles.container}>
           <Grid container spacing={3} display={'flex'}>
-            <Grid item xs={2.5}>
+            <Grid item xs={12} sm={5} md={4} xl={3}>
               <img className="grow" style={{ width: '100%' }} src={movie.image} alt={movie.title} />
             </Grid>
-            <Grid item xs={9.5}>
+            <Grid item xs={12} sm={7} md={8} xl={9}>
               <Stack spacing={2.5}>
-                <Box display={'flex'} gap={2}>
+                <Box className={styles.buttonsWrapper} gap={2}>
                   {!user.movies.find((item) => item.imdbId === movie.imdbId) ? (
                     <Button
                       onClick={() => handleMovieAddition()}
+                      className={styles.button}
                       size="small"
                       color="secondary"
                       variant="contained"
                       startIcon={<AddIcon />}
-                      sx={{ width: 'fit-content', px: 2 }}
+                      sx={{ px: 2 }}
                     >
                       Add To Collection
                     </Button>
                   ) : (
                     <Button
                       onClick={() => handleMovieRemove()}
+                      className={styles.button}
                       size="small"
                       color="error"
                       variant="contained"
                       startIcon={<RemoveIcon />}
-                      sx={{ width: 'fit-content', px: 2 }}
+                      sx={{ px: 2 }}
                     >
                       Remove From Collection
                     </Button>
                   )}
                   <Button
                     onClick={() => setOpenMovieTrailer(true)}
+                    className={styles.button}
                     size="small"
                     variant="contained"
                     startIcon={<SmartDisplayIcon />}
-                    sx={{ width: 'fit-content', px: 2 }}
+                    sx={{ px: 2 }}
                   >
                     Watch trailer
                   </Button>

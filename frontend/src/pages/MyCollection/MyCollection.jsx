@@ -103,19 +103,19 @@ const MyCollection = () => {
     setMovies(filteredResults);
   };
 
-  const isVerySmallScreen = useMediaQuery('(max-width:376px)');
-  const isSmallScreen = useMediaQuery('(max-width:899px)');
-  const isBigScreen = useMediaQuery('(min-width:1536px)');
+  const isVerySmallScreen = useMediaQuery('(max-width:405px)');
+  const isSmallScreen = useMediaQuery('(max-width:991px)');
+  const isBigScreen = useMediaQuery('(min-width:1350px)');
 
   return (
     <>
       <MovieSearchEngine show={openMovieSearchEngine} onClose={() => setOpenMovieSearchEngine(false)} />
       <Subheader className={styles.subheader}>
         <Grid container spacing={3} display={'flex'} alignItems={'center'}>
-          <Grid item xs={12} md={4} lg={5}>
+          <Grid item xs={12} lg={4} xl={5}>
             <SearchInput onChange={(e) => searchMoviesByTitle(e.target.value)} placeholder="Search Movies" />
           </Grid>
-          <Grid className={styles.filterButtonsWrapper} item xs={12} md={4} lg={3} xl={4}>
+          <Grid className={styles.filterButtonsWrapper} item xs={12} lg={4} xl={4}>
             <Button
               onClick={() => sortMoviesByNewest()}
               className={styles.newMoviesFilterButton}
@@ -134,7 +134,7 @@ const MyCollection = () => {
               {(!isVerySmallScreen && isSmallScreen) || isBigScreen ? 'Popular Movies' : 'Popular'}
             </Button>
           </Grid>
-          <Grid className={styles.addButtonWrapper} item xs={12} md={4} xl={3}>
+          <Grid className={styles.addButtonWrapper} item xs={12} lg={4} xl={3}>
             <Button
               onClick={() => setOpenMovieSearchEngine(true)}
               size="small"

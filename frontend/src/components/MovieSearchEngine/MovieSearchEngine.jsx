@@ -95,7 +95,14 @@ const MovieSearchEngine = ({ show, onClose }) => {
         {searchResults.length !== 0 && (
           <Grid container spacing={1} className={styles.resultsContainer}>
             {searchResults.map((item) => (
-              <Grid onClick={navigateToMovie(item.imdbId)} key={item.imdbId} item xs={6} sx={{ cursor: 'pointer' }}>
+              <Grid
+                onClick={navigateToMovie(item.imdbId)}
+                key={item.imdbId}
+                item
+                xs={12}
+                sm={6}
+                sx={{ cursor: 'pointer' }}
+              >
                 <Box className={styles.movieBox}>
                   <Box sx={{ width: '110px', height: '90px' }}>
                     <img style={{ width: '100%', height: '100%' }} src={item.image} alt={item.title} />
