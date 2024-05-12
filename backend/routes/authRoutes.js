@@ -30,9 +30,9 @@ const profileLimiter = rateLimit({
   message: { message: 'Too many requests. Please try again later.' },
 });
 
-// router.use('/login', loginLimiter);
-// router.use('/register', registerLimiter);
-// router.use('/profile', profileLimiter);
+router.use('/login', loginLimiter);
+router.use('/register', registerLimiter);
+router.use('/profile', profileLimiter);
 
 router.post('/register', async (req, res) => {
   try {
