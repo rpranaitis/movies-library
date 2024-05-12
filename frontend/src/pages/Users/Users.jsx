@@ -54,7 +54,7 @@ const Users = () => {
         {filteredUsers !== null && filteredUsers.length > 0 && (
           <Grid container spacing={3}>
             {filteredUsers.map((item) => (
-              <Grid item xs={4}>
+              <Grid key={item._id} item xs={4}>
                 <Box display={'flex'} gap={1.5}>
                   <Grid item xs={2}>
                     <img className={styles.image} src={NoProfileImage} alt={item.email} />

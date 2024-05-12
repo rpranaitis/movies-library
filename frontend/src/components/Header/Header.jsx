@@ -1,5 +1,6 @@
 import styles from './Header.module.scss';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
@@ -9,7 +10,9 @@ const Header = () => {
 
   return (
     <div className={styles.container}>
-      <div></div>
+      <Box display={'flex'} alignItems={'center'} gap={0.7}>
+        This place is for your advertisement
+      </Box>
       <Button
         size="large"
         onClick={handleLogOut}
