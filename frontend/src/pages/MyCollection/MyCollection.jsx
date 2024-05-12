@@ -7,6 +7,7 @@ import MovieSearchEngine from '../../components/MovieSearchEngine/MovieSearchEng
 import Subheader from '../../components/Subheader/Subheader';
 import styles from './MyCollection.module.scss';
 import StarIcon from '@mui/icons-material/Star';
+import classNames from 'classnames';
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import { GenreContext } from '../../contexts/GenreContext';
@@ -150,7 +151,7 @@ const MyCollection = () => {
                   <Box className={styles.imageWrapper}>
                     <img
                       onClick={() => navigateToMovie(item.imdbId)}
-                      className={styles.image}
+                      className={classNames(styles.image, 'grow')}
                       src={item.image}
                       alt={item.title}
                       style={{ cursor: 'pointer' }}

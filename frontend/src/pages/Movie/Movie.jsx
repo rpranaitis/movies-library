@@ -101,7 +101,7 @@ const Movie = () => {
         <div className={styles.container}>
           <Grid container spacing={3} display={'flex'}>
             <Grid item xs={2.5}>
-              <img style={{ width: '100%' }} src={movie.image} alt={movie.title} />
+              <img className="grow" style={{ width: '100%' }} src={movie.image} alt={movie.title} />
             </Grid>
             <Grid item xs={9.5}>
               <Stack spacing={2.5}>
