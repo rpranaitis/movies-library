@@ -8,6 +8,7 @@ import Subheader from '../../components/Subheader/Subheader';
 import styles from './MyCollection.module.scss';
 import StarIcon from '@mui/icons-material/Star';
 import classNames from 'classnames';
+import { useMediaQuery } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import { GenreContext } from '../../contexts/GenreContext';
@@ -102,22 +103,27 @@ const MyCollection = () => {
     setMovies(filteredResults);
   };
 
+  const isVerySmallScreen = useMediaQuery('(max-width:376px)');
+  const isSmallScreen = useMediaQuery('(max-width:899px)');
+  const isBigScreen = useMediaQuery('(min-width:1536px)');
+
   return (
     <>
       <MovieSearchEngine show={openMovieSearchEngine} onClose={() => setOpenMovieSearchEngine(false)} />
       <Subheader className={styles.subheader}>
         <Grid container spacing={3} display={'flex'} alignItems={'center'}>
-          <Grid item xs={5}>
+          <Grid item xs={12} md={4} lg={5}>
             <SearchInput onChange={(e) => searchMoviesByTitle(e.target.value)} placeholder="Search Movies" />
           </Grid>
-          <Grid item xs={4} sx={{ display: 'flex', gap: 1 }}>
+          <Grid className={styles.filterButtonsWrapper} item xs={12} md={4} lg={3} xl={4}>
             <Button
               onClick={() => sortMoviesByNewest()}
+              className={styles.newMoviesFilterButton}
               size="small"
               variant={newestSorting ? 'outlined' : 'text'}
               sx={{ height: 30, px: 3.3 }}
             >
-              New Movies
+              {(!isVerySmallScreen && isSmallScreen) || isBigScreen ? 'New Movies' : 'New'}
             </Button>
             <Button
               onClick={() => sortMoviesByPopularity()}
@@ -125,10 +131,10 @@ const MyCollection = () => {
               variant={popularitySorting ? 'outlined' : 'text'}
               sx={{ height: 30, px: 3.3 }}
             >
-              Popular Movies
+              {(!isVerySmallScreen && isSmallScreen) || isBigScreen ? 'Popular Movies' : 'Popular'}
             </Button>
           </Grid>
-          <Grid item xs={3} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Grid className={styles.addButtonWrapper} item xs={12} md={4} xl={3}>
             <Button
               onClick={() => setOpenMovieSearchEngine(true)}
               size="small"
@@ -146,7 +152,7 @@ const MyCollection = () => {
         {filteredItems.length > 0 ? (
           <Grid container spacing={3}>
             {filteredItems.map((item) => (
-              <Grid key={item.imdbId} item xs={2}>
+              <Grid key={item.imdbId} item xs={6} sm={4} lg={3} xl={2}>
                 <Box display={'flex'} flexDirection={'column'} gap={1.5}>
                   <Box className={styles.imageWrapper}>
                     <img

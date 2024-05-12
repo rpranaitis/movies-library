@@ -5,13 +5,16 @@
 
 .items {
   padding: 15px;
-  margin: 15px 0 15px 0;
+  margin: 5px 0 5px 0;
   color: white;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  max-width: 400px;
   font-size: 12px;
+
+  @media only screen and (min-width: 600px) {
+    margin: 15px 0 15px 0;
+  }
 }
 
 .item {
@@ -30,6 +33,22 @@
   display: flex;
   align-items: center;
   user-select: none;
+
+  @media only screen and (min-width: 350px) {
+    width: calc(33.3333333% - 5px);
+  }
+
+  @media only screen and (min-width: 467px) {
+    width: calc(25% - 5px);
+  }
+
+  @media only screen and (min-width: 600px) {
+    width: calc(20% - 5px);
+  }
+
+  @media only screen and (min-width: 900px) {
+    width: calc(50% - 5px);
+  }
 }
 
 .genreText {
