@@ -11,17 +11,19 @@ import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
 import MovieTrailerDialog from '../../components/MovieTrailerDialog/MovieTrailerDialog';
 import imdbLogo from '../../assets/imdb-logo.png';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { fetchMovieInfo } from '../../api/imdb';
 import { addMovieToCollection, removeMovieFromCollection } from '../../api/collection';
 import { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
+import { ROUTES } from '../../router/constants';
 
 const Movie = () => {
   const { id } = useParams();
   const { user } = useContext(UserContext);
   const [movie, setMovie] = useState(null);
   const [openMovieTrailer, setOpenMovieTrailer] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchMovieInfo(id).then((response) => {
@@ -49,6 +51,7 @@ const Movie = () => {
     try {
       const response = await addMovieToCollection(data);
       user.movies.unshift(response.data);
+      navigate(ROUTES.HOME);
     } catch (error) {
       console.error(error);
     }
@@ -56,8 +59,13 @@ const Movie = () => {
 
   const handleMovieRemove = async () => {
     try {
-      const response = await removeMovieFromCollection(movie.imdbId);
+      const data = {
+        title: movie.title,
+        year: movie.year,
+      };
+      const response = await removeMovieFromCollection(movie.imdbId, data);
       user.movies = user.movies.filter((item) => item.imdbId !== movie.imdbId);
+      navigate(ROUTES.HOME);
     } catch (error) {
       console.error(error);
     }

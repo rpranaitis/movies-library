@@ -56,13 +56,14 @@ router.delete('/:id', authToken, async (req, res) => {
   const { id } = req.params;
 
   try {
+    const foundMovie = await client.db(process.env.MONGO_DATABASE).collection('movies').findOne({ imdbId: id, userId: req.user._id });
     const response = await client.db(process.env.MONGO_DATABASE).collection('movies').deleteOne({ imdbId: id, userId: req.user._id });
 
     if (response.deletedCount === 0) {
       return res.status(400).send({ message: `Movie was not found in your collection.` });
     }
 
-    return res.send({ message: 'Movie was removed from your collection.' });
+    return res.send({ message: `Movie „${foundMovie.title}“ was removed from your collection.` });
   } catch (error) {
     return handleError(res, error);
   }

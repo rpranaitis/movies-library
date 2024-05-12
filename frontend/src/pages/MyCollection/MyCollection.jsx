@@ -1,5 +1,5 @@
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material//Box';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import SearchInput from '../../components/SearchInput/SearchInput';
@@ -7,8 +7,7 @@ import MovieSearchEngine from '../../components/MovieSearchEngine/MovieSearchEng
 import Subheader from '../../components/Subheader/Subheader';
 import styles from './MyCollection.module.scss';
 import StarIcon from '@mui/icons-material/Star';
-import { useState } from 'react';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import { GenreContext } from '../../contexts/GenreContext';
 import { generatePath, useNavigate } from 'react-router-dom';
@@ -16,7 +15,7 @@ import { ROUTES } from '../../router/constants';
 
 const MyCollection = () => {
   const { user } = useContext(UserContext);
-  const { selectedGenre } = useContext(GenreContext);
+  const { selectedGenre, selectGenre } = useContext(GenreContext);
   const [openMovieSearchEngine, setOpenMovieSearchEngine] = useState(false);
   const [movies, setMovies] = useState(user.movies);
   const [newestSorting, setNewestSorting] = useState(false);
@@ -24,6 +23,10 @@ const MyCollection = () => {
   const navigate = useNavigate();
 
   const filteredItems = selectedGenre ? movies.filter((item) => item.genres.find((x) => x === selectedGenre)) : movies;
+
+  useEffect(() => {
+    selectGenre(null);
+  }, []);
 
   const navigateToMovie = (id) => {
     navigate(generatePath(ROUTES.MOVIE, { id }));
