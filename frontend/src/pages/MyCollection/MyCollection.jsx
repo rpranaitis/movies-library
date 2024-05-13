@@ -166,7 +166,14 @@ const MyCollection = () => {
                       <span>{item.rating.toFixed(1)}</span>
                     </Box>
                   </Box>
-                  <Box display={'flex'} flexDirection={'column'} gap={0.65} sx={{ overflowWrap: 'anywhere' }}>
+                  <Box
+                    display={'flex'}
+                    flexDirection={'column'}
+                    alignItems={'center'}
+                    textAlign={'center'}
+                    gap={0.65}
+                    sx={{ overflowWrap: 'anywhere' }}
+                  >
                     <span>
                       {item.title} ({item.year})
                     </span>
