@@ -2,17 +2,23 @@ import PropTypes from 'prop-types';
 import { createContext, useState } from 'react';
 
 const GenreContext = createContext({
-  selectedGenre: null,
+  selectedGenres: [],
 });
 
 const GenreProvider = ({ children }) => {
-  const [selectedGenre, setSelectedGenre] = useState(null);
+  const [selectedGenres, setSelectedGenres] = useState([]);
 
   const selectGenre = (genre) => {
-    setSelectedGenre(genre);
+    setSelectedGenres((prevGenres) => {
+      if (prevGenres.includes(genre)) {
+        return prevGenres.filter((g) => g !== genre);
+      } else {
+        return genre === null ? [] : [...prevGenres, genre];
+      }
+    });
   };
 
-  return <GenreContext.Provider value={{ selectedGenre, selectGenre }}>{children}</GenreContext.Provider>;
+  return <GenreContext.Provider value={{ selectedGenres, selectGenre }}>{children}</GenreContext.Provider>;
 };
 
 GenreProvider.propTypes = {

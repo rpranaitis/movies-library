@@ -17,18 +17,17 @@ import { ROUTES } from '../../router/constants';
 
 const MyCollection = () => {
   const { user } = useContext(UserContext);
-  const { selectedGenre, selectGenre } = useContext(GenreContext);
+  const { selectedGenres, selectGenre } = useContext(GenreContext);
   const [openMovieSearchEngine, setOpenMovieSearchEngine] = useState(false);
   const [movies, setMovies] = useState(user.movies);
   const [newestSorting, setNewestSorting] = useState(false);
   const [popularitySorting, setPopularitySorting] = useState(false);
   const navigate = useNavigate();
 
-  const filteredItems = selectedGenre ? movies.filter((item) => item.genres.find((x) => x === selectedGenre)) : movies;
-
-  useEffect(() => {
-    selectGenre(null);
-  }, []);
+  const filteredItems =
+    selectedGenres.length > 0
+      ? movies.filter((item) => item.genres.some((genre) => selectedGenres.includes(genre)))
+      : movies;
 
   const navigateToMovie = (id) => {
     navigate(generatePath(ROUTES.MOVIE, { id }));

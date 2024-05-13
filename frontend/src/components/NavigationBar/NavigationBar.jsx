@@ -12,7 +12,7 @@ import { GenreContext } from '../../contexts/GenreContext';
 const NavigationBar = () => {
   const location = useLocation();
   const { user } = useContext(UserContext);
-  const { selectedGenre, selectGenre } = useContext(GenreContext);
+  const { selectedGenres, selectGenre } = useContext(GenreContext);
 
   const getGenresWithCount = () => {
     const genreCounts = {};
@@ -55,13 +55,15 @@ const NavigationBar = () => {
             {Object.entries(getGenresWithCount()).map(([genre, count], index) => (
               <div key={index} className={styles.genreItem}>
                 <div
-                  onClick={() => (selectedGenre === genre ? selectGenre(null) : selectGenre(genre))}
-                  className={`${styles.genreCircle} ${genre === selectedGenre ? styles.selectedGenreCircle : ''}`}
+                  onClick={() => selectGenre(selectedGenres.includes(genre) ? null : genre)}
+                  className={`${styles.genreCircle} ${
+                    selectedGenres.includes(genre) ? styles.selectedGenreCircle : ''
+                  }`}
                 >
                   {count}
                 </div>
                 <span
-                  onClick={() => (selectedGenre === genre ? selectGenre(null) : selectGenre(genre))}
+                  onClick={() => selectGenre(selectedGenres.includes(genre) ? null : genre)}
                   className={styles.genreText}
                 >
                   {genre}
