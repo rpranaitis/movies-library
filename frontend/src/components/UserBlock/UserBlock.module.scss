@@ -1,0 +1,21 @@
+.container {
+  background: linear-gradient(to left, #ffa500, #ff4500);
+  height: 90px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 7px;
+  overflow-wrap: anywhere;
+  padding: 15px;
+}
+
+.welcome {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.email {
+  font-size: 13px;
+}

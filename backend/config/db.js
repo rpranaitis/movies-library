@@ -2,6 +2,9 @@ const { MongoClient } = require('mongodb');
 
 require('dotenv').config();
 
+const URI = `${[process.env.MONGO_URI]}/${process.env.MONGO_DATABASE}?retryWrites=true&w=majority`;
+const client = new MongoClient(URI);
+
 let connection;
 
 (async function connectToMongoDB() {
@@ -9,12 +12,9 @@ let connection;
     return connection;
   }
 
-  const URI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.o98qsjc.mongodb.net/${process.env.DB_DATABASE}?retryWrites=true&w=majority`;
-  const client = new MongoClient(URI);
-
   try {
     await client.connect();
-    connection = client.db(process.env.DB_DATABASE);
+    connection = client.db();
     console.log('Connected to MongoDB');
 
     return connection;

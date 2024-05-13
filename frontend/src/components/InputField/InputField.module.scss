@@ -1,0 +1,23 @@
+.input {
+  border: none;
+  padding: 10px;
+  outline: none;
+  width: 100%;
+  color: #232633;
+  border-radius: 5px;
+
+  &::placeholder {
+    color: #9ca2bc;
+  }
+}
+
+.fieldWrapper {
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  margin-top: 11px;
+  margin-left: 10px;
+  color: #9ca2bc;
+}

@@ -1,0 +1,20 @@
+.resultsContainer {
+  overflow-y: scroll;
+  max-height: 320px;
+  padding-bottom: 5px;
+}
+
+.movieBox {
+  background: #e9eaf0;
+  display: flex;
+  border: 1px solid #d3d6e1;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.credits {
+  font-size: 11px;
+}

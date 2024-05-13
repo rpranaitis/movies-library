@@ -1,34 +1,31 @@
 const axios = require('axios');
+const cheerio = require('cheerio');
 const express = require('express');
+const { authToken } = require('../middlewares/authMiddlewares');
+const { randomUserAgent } = require('../utils/scrapping');
 
 require('dotenv').config();
 
 const router = express.Router();
 
-const headers = {
-  'X-RapidAPI-Key': process.env.IMDB_KEY,
-  'X-RapidAPI-Host': process.env.IMDB_HOST,
-};
-
-router.get('/', async (req, res) => {
+router.get('/', authToken, async (req, res) => {
   const options = {
     method: 'GET',
-    url: `https://${process.env.IMDB_HOST}/v1/find/`,
-    params: { query: req.query.q },
-    headers: headers,
+    url: `https://${process.env.IMDB_SEARCH_HOST}/suggestion/x/${req.query.q}.json`,
   };
 
   try {
     const response = await axios.request(options);
-    const filteredData = response.data.titleResults.results.filter((item) => item.titleReleaseText && item.imageType === 'movie');
+    const currentYear = new Date().getFullYear();
+    const filteredData = response.data.d.filter((item) => item.y && item.y <= currentYear && item.i && item.qid === 'movie');
 
     const result = filteredData.map((item) => {
       return {
-        imdb_id: item.id,
-        title: item.titleNameText,
-        year: item.titleReleaseText,
-        credits: item.topCredits,
-        image: item.titlePosterImageModel ? item.titlePosterImageModel.url : null,
+        imdbId: item.id,
+        title: item.l,
+        year: item.y,
+        credits: item.s,
+        image: item.i.imageUrl,
       };
     });
 
@@ -38,37 +35,48 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', authToken, async (req, res) => {
   const options = {
     method: 'GET',
-    url: `https://${process.env.IMDB_HOST}/v1/title/`,
-    params: { id: req.params.id },
-    headers: headers,
+    url: `https://${process.env.IMDB_MAIN_HOST}/title/${req.params.id}`,
+    headers: {
+      'User-Agent': randomUserAgent,
+    },
   };
 
   try {
-    const response = await axios.request(options);
+    const axiosResponse = await axios.request(options);
+    const html = axiosResponse.data;
+    const $ = cheerio.load(html);
+    const obj = JSON.parse($('#__NEXT_DATA__').text());
+    const response = obj.props.pageProps.aboveTheFoldData;
 
     const result = {
-      imdb_id: response.data.id,
-      title: response.data.titleText.text,
-      year: response.data.releaseYear.year,
-      description: response.data.plot.plotText.plainText,
-      genres: response.data.genres.genres.map((item) => item.text),
-      runtime: response.data.runtime.displayableProperty.value.plainText,
-      ratingsSummary: {
-        rating: response.data.ratingsSummary.aggregateRating,
-        voteCount: response.data.ratingsSummary.voteCount,
+      imdbId: response.id,
+      title: response.originalTitleText.text,
+      primaryTitle: response.titleText.text,
+      description: response.plot.plotText.plainText,
+      year: response.releaseYear.year,
+      genres: response.genres.genres.map((item) => item.text),
+      ratingSummary: {
+        rating: response.ratingsSummary.aggregateRating,
+        voteCount: response.ratingsSummary.voteCount,
       },
-      image: response.data.primaryImage.url,
-      trailer: response.data.primaryVideos.edges.length ? response.data.primaryVideos.edges[0].node.playbackURLs[0].url : null,
-      credits: response.data.principalCredits
+      runtime: response.runtime ? response.runtime.displayableProperty.value.plainText : null,
+      image: response.primaryImage.url,
+      trailer: response.primaryVideos.edges.length ? response.primaryVideos.edges[0].node.playbackURLs[0].url : null,
+      credits: response.principalCredits
         .filter((item) => item.category.id === 'cast')[0]
-        .credits.map((item) => item.name.nameText.text),
+        .credits.map((item) => item.name.nameText.text)
+        .join(', '),
     };
 
     return res.send(result);
   } catch (error) {
+    if (error?.response?.status === 404) {
+      return res.status(404).send({ message: 'Movie not found.' });
+    }
+
     return res.status(500).send({ error: error.message });
   }
 });

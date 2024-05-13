@@ -1,0 +1,76 @@
+.container {
+  background: #323649;
+  height: calc(100% - 90px);
+}
+
+.items {
+  padding: 15px;
+  margin: 5px 0 5px 0;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  font-size: 12px;
+
+  @media only screen and (min-width: 576px) {
+    margin: 15px 0 15px 0;
+  }
+}
+
+.item {
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: #4c5370;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.genreItem {
+  margin-bottom: 5px;
+  width: calc(50% - 5px);
+  display: flex;
+  align-items: center;
+  user-select: none;
+
+  @media only screen and (min-width: 350px) {
+    width: calc(33.3333333% - 5px);
+  }
+
+  @media only screen and (min-width: 467px) {
+    width: calc(25% - 5px);
+  }
+
+  @media only screen and (min-width: 576px) {
+    width: calc(20% - 5px);
+  }
+
+  @media only screen and (min-width: 992px) {
+    width: calc(50% - 5px);
+  }
+}
+
+.genreText {
+  cursor: pointer;
+}
+
+.genreCircle {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #f96a10;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5px;
+  font-size: 9px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.selectedGenreCircle {
+  background: #323649;
+  border: 1px solid white;
+}

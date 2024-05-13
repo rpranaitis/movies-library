@@ -1,0 +1,7 @@
+.container {
+  background: #ffffff;
+
+  @media only screen and (min-width: 576px) {
+    height: calc(100% - 120px);
+  }
+}
