@@ -25,39 +25,41 @@ To run the application, follow these steps:
    cd backend
    ```
 
-3. Install dependencies:
+3. Update the .env file with your configuration variables. You may need to set up variables such as database connection strings, API keys, or any other environment-specific configurations.
+
+4. Install dependencies:
 
    ```
    npm install
    ```
 
-4. Start the backend server:
+5. Start the backend server:
 
    ```
    npm run dev
    ```
 
-5. Open a new terminal window/tab.
+6. Open a new terminal window/tab.
 
-6. Navigate to the frontend directory:
+7. Navigate to the frontend directory:
 
    ```
    cd frontend
    ```
 
-7. Install dependencies:
+8. Install dependencies:
 
    ```
    npm install
    ```
 
-8. Start the frontend server:
+9. Start the frontend server:
 
    ```
    npm run dev
    ```
 
-9. Open your web browser and go to `http://localhost` to view the application.
+10. Open your web browser and go to `http://localhost` to view the application.
 
 ## Technologies Used
 
