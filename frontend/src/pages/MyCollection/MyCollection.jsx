@@ -153,7 +153,7 @@ const MyCollection = () => {
           <Grid container spacing={3}>
             {filteredItems.map((item) => (
               <Grid key={item.imdbId} item xs={6} sm={4} lg={3} xxl={2}>
-                <Box display={'flex'} flexDirection={'column'} gap={1.5}>
+                <Box display={'flex'} flexDirection={'column'} gap={1.8}>
                   <Box className={styles.imageWrapper}>
                     <img
                       onClick={() => navigateToMovie(item.imdbId)}
