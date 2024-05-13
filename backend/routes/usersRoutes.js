@@ -7,11 +7,11 @@ require('dotenv').config();
 const router = express.Router();
 const client = require('../config/db');
 
-router.get('/', authToken, async (req, res) => {
+router.get('/', authToken, async (_req, res) => {
   try {
     const response = await client.db(process.env.MONGO_DATABASE).collection('users').find().sort({ createdAt: -1 }).toArray();
     const data = response.map((item) => {
-      return { _id: item._id, email: item.email, createdAt: item.createdAt, updatedAt: item.updatedAt };
+      return { _id: item._id, username: item.username, createdAt: item.createdAt, updatedAt: item.updatedAt };
     });
 
     return res.status(201).send({ data });

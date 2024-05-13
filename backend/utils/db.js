@@ -1,12 +1,12 @@
 const client = require('../config/db');
 
-const fetchUserWithInfo = async (email) => {
+const fetchUserWithInfo = async (username) => {
   const response = await client
     .db(process.env.MONGO_DATABASE)
     .collection('users')
     .aggregate([
       {
-        $match: { email: email },
+        $match: { username },
       },
       {
         $lookup: {
@@ -28,7 +28,7 @@ const fetchUserWithInfo = async (email) => {
       {
         $group: {
           _id: '$_id',
-          email: { $first: '$email' },
+          username: { $first: '$username' },
           password: { $first: '$password' },
           createdAt: { $first: '$createdAt' },
           updatedAt: { $first: '$updatedAt' },
@@ -44,7 +44,7 @@ const fetchUserWithInfo = async (email) => {
 const userDataResponse = (user) => {
   return {
     _id: user._id,
-    email: user.email,
+    username: user.username,
     movies: user.movies,
     createdAt: user.createdAt,
     updatedAt: user.updatedAt,

@@ -3,7 +3,7 @@ import InputField from '../../components/InputField/InputField';
 import Error from '../Error/Error';
 import styles from './LoginForm.module.scss';
 import { loginUser } from '../../api/auth';
-import { LuMail, LuKeyRound } from 'react-icons/lu';
+import { LuUser2, LuKeyRound } from 'react-icons/lu';
 import { Formik, Form, ErrorMessage } from 'formik';
 import { loginInitialValues } from './initialValues';
 import { loginValidationSchema } from './validationSchema';
@@ -25,10 +25,10 @@ const LoginForm = () => {
   return (
     <Formik initialValues={loginInitialValues} onSubmit={handleSubmit} validationSchema={loginValidationSchema}>
       <Form className={styles.form}>
-        <InputField name="email" type="email" placeholder="Email">
-          <LuMail style={{ fontSize: 16 }} />
+        <InputField name="username" type="text" placeholder="Username">
+          <LuUser2 style={{ fontSize: 16 }} />
         </InputField>
-        <ErrorMessage name="email" component={Error} />
+        <ErrorMessage name="username" component={Error} />
         <InputField name="password" type="password" placeholder="Password">
           <LuKeyRound style={{ fontSize: 16 }} />
         </InputField>
