@@ -1,6 +1,10 @@
 .container {
   background: #323649;
-  height: calc(100% - 90px);
+  padding-bottom: 5px;
+
+  @media only screen and (min-width: 992px) {
+    height: calc(100% - 90px);
+  }
 }
 
 .items {

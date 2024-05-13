@@ -48,27 +48,29 @@ const NavigationBar = () => {
           </Link>
         ))}
       </Stack>
-      <Box display={location.pathname === ROUTES.HOME ? 'block' : 'none'}>
-        <NavTitle>COLLECTION</NavTitle>
-        <Box className={styles.items} gap={0.2}>
-          {Object.entries(getGenresWithCount()).map(([genre, count], index) => (
-            <div key={index} className={styles.genreItem}>
-              <div
-                onClick={() => (selectedGenre === genre ? selectGenre(null) : selectGenre(genre))}
-                className={`${styles.genreCircle} ${genre === selectedGenre ? styles.selectedGenreCircle : ''}`}
-              >
-                {count}
+      {location.pathname === ROUTES.HOME && user.movies.length > 0 && (
+        <Box>
+          <NavTitle>COLLECTION</NavTitle>
+          <Box className={styles.items} gap={0.2}>
+            {Object.entries(getGenresWithCount()).map(([genre, count], index) => (
+              <div key={index} className={styles.genreItem}>
+                <div
+                  onClick={() => (selectedGenre === genre ? selectGenre(null) : selectGenre(genre))}
+                  className={`${styles.genreCircle} ${genre === selectedGenre ? styles.selectedGenreCircle : ''}`}
+                >
+                  {count}
+                </div>
+                <span
+                  onClick={() => (selectedGenre === genre ? selectGenre(null) : selectGenre(genre))}
+                  className={styles.genreText}
+                >
+                  {genre}
+                </span>
               </div>
-              <span
-                onClick={() => (selectedGenre === genre ? selectGenre(null) : selectGenre(genre))}
-                className={styles.genreText}
-              >
-                {genre}
-              </span>
-            </div>
-          ))}
+            ))}
+          </Box>
         </Box>
-      </Box>
+      )}
     </nav>
   );
 };
