@@ -10,11 +10,11 @@ const AuthLayout = ({ children }) => {
   return (
     <Box display={'flex'}>
       <Grid container style={{ height: '100vh' }}>
-        <Grid item xs={12} lg={3} xl={2}>
+        <Grid item xs={12} lg={3} xxl={2}>
           <UserBlock />
           <NavigationBar />
         </Grid>
-        <Grid item xs={12} lg={9} xl={10}>
+        <Grid item xs={12} lg={9} xxl={10}>
           <Header />
           <MainBlock>{children}</MainBlock>
         </Grid>

@@ -33,6 +33,7 @@
   display: flex;
   align-items: center;
   user-select: none;
+  font-size: 12.5px;
 
   @media only screen and (min-width: 350px) {
     width: calc(33.3333333% - 5px);
