@@ -17,18 +17,17 @@ import { ROUTES } from '../../router/constants';
 
 const MyCollection = () => {
   const { user } = useContext(UserContext);
-  const { selectedGenre, selectGenre } = useContext(GenreContext);
+  const { selectedGenres, selectGenre } = useContext(GenreContext);
   const [openMovieSearchEngine, setOpenMovieSearchEngine] = useState(false);
   const [movies, setMovies] = useState(user.movies);
   const [newestSorting, setNewestSorting] = useState(false);
   const [popularitySorting, setPopularitySorting] = useState(false);
   const navigate = useNavigate();
 
-  const filteredItems = selectedGenre ? movies.filter((item) => item.genres.find((x) => x === selectedGenre)) : movies;
-
-  useEffect(() => {
-    selectGenre(null);
-  }, []);
+  const filteredItems =
+    selectedGenres.length > 0
+      ? movies.filter((item) => item.genres.some((genre) => selectedGenres.includes(genre)))
+      : movies;
 
   const navigateToMovie = (id) => {
     navigate(generatePath(ROUTES.MOVIE, { id }));
@@ -105,7 +104,7 @@ const MyCollection = () => {
 
   const isVerySmallScreen = useMediaQuery('(max-width:405px)');
   const isSmallScreen = useMediaQuery('(max-width:991px)');
-  const isBigScreen = useMediaQuery('(min-width:1350px)');
+  const isBigScreen = useMediaQuery('(min-width:1400px)');
 
   return (
     <>
@@ -152,8 +151,8 @@ const MyCollection = () => {
         {filteredItems.length > 0 ? (
           <Grid container spacing={3}>
             {filteredItems.map((item) => (
-              <Grid key={item.imdbId} item xs={6} sm={4} lg={3} xl={2}>
-                <Box display={'flex'} flexDirection={'column'} gap={1.5}>
+              <Grid key={item.imdbId} item xs={6} sm={4} lg={3} xxl={2}>
+                <Box display={'flex'} flexDirection={'column'} gap={1.8}>
                   <Box className={styles.imageWrapper}>
                     <img
                       onClick={() => navigateToMovie(item.imdbId)}
@@ -167,7 +166,14 @@ const MyCollection = () => {
                       <span>{item.rating.toFixed(1)}</span>
                     </Box>
                   </Box>
-                  <Box display={'flex'} flexDirection={'column'} gap={0.65} sx={{ overflowWrap: 'anywhere' }}>
+                  <Box
+                    display={'flex'}
+                    flexDirection={'column'}
+                    alignItems={'center'}
+                    textAlign={'center'}
+                    gap={0.65}
+                    sx={{ overflowWrap: 'anywhere' }}
+                  >
                     <span>
                       {item.title} ({item.year})
                     </span>

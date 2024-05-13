@@ -24,8 +24,8 @@ const RegisterForm = () => {
   return (
     <Formik initialValues={registerInitialValues} onSubmit={handleSubmit} validationSchema={registerValidationSchema}>
       <Form className={styles.form}>
-        <InputField name="email" type="email" placeholder="Email" />
-        <ErrorMessage name="email" component={Error} />
+        <InputField name="username" type="text" placeholder="Username" />
+        <ErrorMessage name="username" component={Error} />
         <InputField name="password" type="password" placeholder="Password" />
         <ErrorMessage name="password" component={Error} />
         <InputField name="confirmPassword" type="password" placeholder="Confirm Password" />

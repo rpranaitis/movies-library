@@ -37,8 +37,8 @@ router.use('/profile', profileLimiter);
 router.post('/register', async (req, res) => {
   try {
     await registerSchema.validate(req.body, { abortEarly: true });
-    const { email, password } = req.body;
-    const user = await client.db(process.env.MONGO_DATABASE).collection('users').findOne({ email });
+    const { username, password } = req.body;
+    const user = await client.db(process.env.MONGO_DATABASE).collection('users').findOne({ username });
 
     if (user) {
       return res.status(400).send({ message: 'User already exists.' });
@@ -51,7 +51,10 @@ router.post('/register', async (req, res) => {
 
       const createdAt = new Date().toLocaleString();
 
-      await client.db(process.env.MONGO_DATABASE).collection('users').insertOne({ email, password: hash, createdAt, updatedAt: createdAt });
+      await client
+        .db(process.env.MONGO_DATABASE)
+        .collection('users')
+        .insertOne({ username, password: hash, createdAt, updatedAt: createdAt });
 
       return res.status(201).send({ message: 'Registration successfull. Now you can sign in.' });
     });
@@ -63,17 +66,17 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     await loginSchema.validate(req.body, { abortEarly: true });
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
-    const user = await fetchUserWithInfo(email);
+    const user = await fetchUserWithInfo(username);
 
     if (!user) {
-      return res.status(401).send({ message: 'Invalid email or password.' });
+      return res.status(401).send({ message: 'Invalid username or password.' });
     }
 
     bcrypt.compare(password, user.password, (error, result) => {
       if (error || !result) {
-        return res.status(401).send({ message: 'Invalid email or password.' });
+        return res.status(401).send({ message: 'Invalid username or password.' });
       }
 
       const userData = userDataResponse(user);

@@ -25,7 +25,7 @@ const Users = () => {
     fetchData();
   }, []);
 
-  const searchUsersByEmail = (query) => {
+  const searchUsersByUsername = (query) => {
     if (!query) {
       setFilteredUsers(users);
     }
@@ -33,9 +33,9 @@ const Users = () => {
     const normalizedQuery = query.toLowerCase();
 
     const filteredResults = users.filter((user) => {
-      const normalizedEmail = user.email.toLowerCase();
+      const normalizedUsername = user.username.toLowerCase();
 
-      return normalizedEmail.includes(normalizedQuery);
+      return normalizedUsername.includes(normalizedQuery);
     });
 
     setFilteredUsers(filteredResults);
@@ -46,7 +46,7 @@ const Users = () => {
       <Subheader className={styles.subheader}>
         <Grid container spacing={3} display={'flex'} alignItems={'center'}>
           <Grid item xs={12}>
-            <SearchInput onChange={(e) => searchUsersByEmail(e.target.value)} placeholder="Search Users" />
+            <SearchInput onChange={(e) => searchUsersByUsername(e.target.value)} placeholder="Search Users" />
           </Grid>
         </Grid>
       </Subheader>
@@ -54,22 +54,22 @@ const Users = () => {
         {filteredUsers !== null && filteredUsers.length > 0 && (
           <Grid container spacing={3}>
             {filteredUsers.map((item) => (
-              <Grid key={item._id} item xs={12} sm={6} lg={4} xl={3}>
-                <Box display={'flex'} gap={1.5}>
-                  <Grid item xs={2}>
-                    <img className={styles.image} src={NoProfileImage} alt={item.email} />
+              <Grid key={item._id} item xs={6} sm={4} md={3} xl={2} xxl={1.5}>
+                <Box display={'flex'} flexDirection={'column'} gap={1.5}>
+                  <Grid item xs={12}>
+                    <img className={styles.image} src={NoProfileImage} alt={item.username} />
                   </Grid>
                   <Grid
                     item
-                    xs={10}
+                    xs={12}
                     display={'flex'}
                     flexDirection={'column'}
                     justifyContent={'center'}
                     gap={1.3}
                     sx={{ wordBreak: 'break-word' }}
                   >
-                    <Box display={'flex'} flexDirection={'column'} gap={1.3}>
-                      <span className={styles.detailMainText}>{item.email}</span>
+                    <Box display={'flex'} flexDirection={'column'} alignItems={'center'} gap={1.3}>
+                      <span className={styles.detailMainText}>{item.username}</span>
                       <span className={styles.detailSecondText}>{item.createdAt}</span>
                     </Box>
                   </Grid>

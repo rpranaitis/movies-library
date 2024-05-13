@@ -14,7 +14,7 @@ const authToken = (req, res, next) => {
       return res.sendStatus(403);
     }
 
-    const userWithInfo = await fetchUserWithInfo(user.email);
+    const userWithInfo = await fetchUserWithInfo(user.username);
 
     if (!userWithInfo) {
       return res.sendStatus(404);

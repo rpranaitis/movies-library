@@ -7,8 +7,8 @@ const UserBlock = () => {
 
   return (
     <div className={styles.container}>
-      <span className={styles.welcome}>Welcome,</span>
-      <span className={styles.email}>{user.email}</span>
+      <span className={styles.username}>{user.username}</span>
+      <span className={styles.secondText}>Movies Library</span>
     </div>
   );
 };

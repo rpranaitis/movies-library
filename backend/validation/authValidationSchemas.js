@@ -1,7 +1,7 @@
 const yup = require('yup');
 
 const registerSchema = yup.object().shape({
-  email: yup.string().email('Email format is not correct.').required('Email is required.'),
+  username: yup.string().required('Username is required.'),
   password: yup.string().required('Password is required.').min(6, 'Password must be at least 6 characters.'),
   confirmPassword: yup
     .string()
@@ -12,7 +12,7 @@ const registerSchema = yup.object().shape({
 });
 
 const loginSchema = yup.object().shape({
-  email: yup.string().required('Email is required.'),
+  username: yup.string().required('Username is required.'),
   password: yup.string().required('Password is required.'),
 });
 

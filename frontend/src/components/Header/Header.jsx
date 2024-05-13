@@ -10,8 +10,11 @@ const Header = () => {
 
   return (
     <div className={styles.container}>
-      <Box display={'flex'} alignItems={'center'} gap={0.7}>
-        This place is for your advertisement
+      <Box display={'flex'} flexDirection={'column'} alignItems={'start'} gap={1.8}>
+        <span style={{ fontStyle: 'italic' }}>This place is for your advertisement</span>
+        <span className={styles.credentials}>
+          Project created by <span style={{ fontWeight: 600 }}>rolandaspranaitis@gmail.com</span>
+        </span>
       </Box>
       <Button
         size="large"

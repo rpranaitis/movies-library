@@ -1,6 +1,10 @@
 .container {
   background: #323649;
-  height: calc(100% - 90px);
+  padding-bottom: 5px;
+
+  @media only screen and (min-width: 992px) {
+    height: calc(100% - 90px);
+  }
 }
 
 .items {
@@ -33,6 +37,7 @@
   display: flex;
   align-items: center;
   user-select: none;
+  font-size: 12.5px;
 
   @media only screen and (min-width: 350px) {
     width: calc(33.3333333% - 5px);
