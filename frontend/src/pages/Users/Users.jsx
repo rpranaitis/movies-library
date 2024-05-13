@@ -54,21 +54,21 @@ const Users = () => {
         {filteredUsers !== null && filteredUsers.length > 0 && (
           <Grid container spacing={3}>
             {filteredUsers.map((item) => (
-              <Grid key={item._id} item xs={12} sm={6} md={4} xxl={3}>
-                <Box display={'flex'} gap={1.5}>
-                  <Grid item xs={2}>
+              <Grid key={item._id} item xs={6} sm={4} md={3} xl={2} xxl={1.5}>
+                <Box display={'flex'} flexDirection={'column'} gap={1.5}>
+                  <Grid item xs={12}>
                     <img className={styles.image} src={NoProfileImage} alt={item.username} />
                   </Grid>
                   <Grid
                     item
-                    xs={10}
+                    xs={12}
                     display={'flex'}
                     flexDirection={'column'}
                     justifyContent={'center'}
                     gap={1.3}
                     sx={{ wordBreak: 'break-word' }}
                   >
-                    <Box display={'flex'} flexDirection={'column'} gap={1.3}>
+                    <Box display={'flex'} flexDirection={'column'} alignItems={'center'} gap={1.3}>
                       <span className={styles.detailMainText}>{item.username}</span>
                       <span className={styles.detailSecondText}>{item.createdAt}</span>
                     </Box>
